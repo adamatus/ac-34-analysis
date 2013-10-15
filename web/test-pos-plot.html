@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Test Leaflet map</title>
+    <title>America's Cup 34 Race Analyzer</title>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
     <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
@@ -14,8 +14,19 @@
     fill: black;
 }
 
-.usa {
+.dot-usa {
     fill: black;
+}
+
+.track {
+    opacity: 1;
+    stroke: black;
+    stroke-width: 1px;
+    fill: none;
+}
+
+.track-usa {
+    stroke: blue;
 }
 
     </style>
@@ -38,31 +49,50 @@ function project(x) {
   return map.latLngToLayerPoint(new L.LatLng(x.lat, x.lon));
 }
 
+var track = d3.svg.line()
+    .x(function(d) { return d.x })
+    .y(function(d) { return d.y });
+
 var usa_points = [];
 
+var do_dots = false;
+
 //d3.csv('../data/130925/csv/20130925130025-NAV-USA-start.csv',function(d) {
-d3.csv('../data/130925/csv/20130925130025-NAV-USA-start.csv')
+d3.csv('../data/130925/csv/20130925130025-NAV-USA.csv')
     .row(function(d) { 
         return {lat:d.Lat, lon:d.Lon}; })
     .get(function(error,rows) { 
       
         usa_points = rows;  
 
-        g.selectAll('.dot')
-                .data(usa_points.map(function(d) { return project(d); }),function(d,i) { return i; })
-            .enter().append('svg:circle')
-                .attr('class','dot usa')
-                .attr('r',2)
-                .attr('cx',function(d) { return d.x; })
-                .attr('cy',function(d) { return d.y; })
-                .on('mouseover',function(d) { d3.select(this).style('fill','red') })
-                .on('mouseout',function(d) { d3.select(this).style('fill','black') });
-
-        map.on("viewreset",function() {
+        if (do_dots) {
             g.selectAll('.dot')
                     .data(usa_points.map(function(d) { return project(d); }),function(d,i) { return i; })
-                    .attr('cx',function(d) { console.log('Updating dx'); return d.x; })
+                .enter().append('svg:circle')
+                    .attr('class','dot dot-usa')
+                    .attr('r',2)
+                    .attr('cx',function(d) { return d.x; })
+                    .attr('cy',function(d) { return d.y; })
+                    .on('mouseover',function(d) { d3.select(this).style('fill','red') })
+                    .on('mouseout',function(d) { d3.select(this).style('fill','black') });
+        }
+
+        g.append('svg:path')
+                .attr("d",track(usa_points.map(function(d) { return project(d); })))
+                .attr('class','track track-usa');
+
+
+        map.on("viewreset",function() {
+            if (do_dots) {
+                g.selectAll('.dot')
+                    .data(usa_points.map(function(d) { return project(d); }),function(d,i) { return i; })
+                    .attr('cx',function(d) { return d.x; })
                     .attr('cy',function(d) { return d.y; });
+            }
+
+            g.selectAll('.track')
+                .attr("d",track(usa_points.map(function(d) { return project(d); })))
+
             });
             
      });

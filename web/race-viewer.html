@@ -8,18 +8,43 @@
     <style>
 #map { height: 400px; }
 
-.dot {
-    opacity: .5;
+.mark {
+    fill: yellow;
+    stroke: none;
+}
+
+.boat-marker {
+    opacity: 1;
     stroke: none;
     fill: black;
 }
 
-.dot-usa {
+.boat-marker-usa {
     fill: black;
 }
 
-.dot-nzl {
-    fill: black;
+.boat-marker-nzl {
+    fill: red;
+}
+
+.boat-marker-heli {
+    fill: blue;
+}
+
+.boat-marker-ump {
+    fill: yellow;
+}
+
+.boat-marker-cam {
+    fill: green;
+}
+
+.boat-marker-rc {
+    fill: white;
+}
+
+.boat-marker-marshall {
+    fill: gray;
 }
 
 .track {
@@ -97,10 +122,12 @@ markGroup.selectAll('.mark')
         .data(marks.map(function(d) { return project(d); }),function(d,i) { return i; })
     .enter().append('svg:circle')
         .attr('class','mark')
-        .attr('r',5)
+        .attr('r',2)
         .attr('cx',function(d) { return d.x; })
         .attr('cy',function(d) { return d.y; })
         .on('mouseout',function(d,i) { console.log(marks[i].label); });
+
+var boatGroup = g.append('g').attr('id','boat-group');
 
 var boats = [{id:'USA',className:'usa'},
              {id:'PRO',className:'rc'},
@@ -127,15 +154,27 @@ for (var i = 0; i < boats.length; i++) (function(i) {
         .get(function(error,rows) { 
           
             track_points[boat_id] = rows;  
-            g.append('svg:path')
+            var boatTrack = boatGroup.append('svg:g')
+                .attr('id','boat-group-'.concat(boat_id))
+                .attr('class','boat-group');
+            boatTrack.append('svg:path')
                     .attr("d",track(track_points[boat_id].map(function(d) { return project(d); })))
                     .attr('id','track-'.concat(boat_id))
                     .attr('class','track track-'.concat(boat_class));
-                
+
+            boatTrack.selectAll('.boat-marker')
+                    .data([project(track_points[boat_id][0])])
+                .enter().append('svg:circle')
+                    .attr('id','boat-marker-'.concat(boat_id))
+                    .attr('class','boat-marker boat-marker-'.concat(boat_class))
+                    .attr('r',3)
+                    .attr('cx',function(d) { return d.x; })
+                    .attr('cy',function(d) { return d.y; });
          });
 })(i);
 
 var updateView = function() {
+    // Update mark positions
     g.selectAll('.mark')
         .data(marks.map(function(d) { return project(d); }),function(d,i) { return i; })
         .attr('cx',function(d) { return d.x; })
@@ -143,8 +182,13 @@ var updateView = function() {
     
     for (var i = 0; i < boats.length; i++) {
         var boat_id = boats[i].id;
-        g.selectAll('#track-'.concat(boat_id))
+        g.select('#track-'.concat(boat_id))
             .attr("d",track(track_points[boat_id].map(function(d) { return project(d); })))
+
+        g.select('#boat-marker-'.concat(boat_id))
+                .data([project(track_points[boat_id][0])])
+            .attr('cx',function(d) { return d.x; })
+            .attr('cy',function(d) { return d.y; });
     }
 
 

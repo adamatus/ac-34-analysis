@@ -3,11 +3,13 @@
   <head>
     <title>America's Cup 34 Race Analyzer</title>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="libs/slider/css/slider.css"></script>
 
     <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script language="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="libs/slider/js/bootstrap-slider.js"></script>
     <style>
 #map { height: 400px; }
 
@@ -84,11 +86,38 @@
 .track-marshall {
     stroke: gray;
 }
+
+.slider {
+    margin: 10px;
+    width: 700px;
+}
+
+#time-slider {
+    width: 700px;
+}
     </style>
   </head>
   <body>
-      <div id="map"></div>
+      <div class="container">
+        <div id="map"></div>
+        <input type="text" class="slider" value="0" id="time-slider" >
+      </div>
       <script>
+$('#time-slider').slider({
+                    min:0,
+                    max:1000,
+                    step:1,
+                    value:0,
+                    selection:'before',
+                    formater: function(value) {
+                                return 'Current value: '+value;
+                              }
+                  })
+        .on('slide',function(ev) {
+                updateBoatPos(ev.value);
+                });
+
+
 var map = L.map('map').setView([37.82022604148547, -122.4294090270996], 13);
 L.tileLayer('http://{s}.tile.cloudmade.com/78f159c3ec8c4290b7854cf0471003ec/997/256/{z}/{x}/{y}.png', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="http://cloudmade.com">CloudMade</a>',
@@ -133,16 +162,16 @@ markGroup.selectAll('.mark')
 var boatGroup = g.append('g').attr('id','boat-group');
 
 var boats = [{id:'USA',className:'usa'},
-             {id:'PRO',className:'rc'},
-             {id:'HL1',className:'heli'},
-             {id:'HL2',className:'heli'},
-             {id:'RGR',className:'marshall'},
-             {id:'SHA',className:'marshall'},
+             //{id:'PRO',className:'rc'},
+             //{id:'HL1',className:'heli'},
+             //{id:'HL2',className:'heli'},
+             //{id:'RGR',className:'marshall'},
+             //{id:'SHA',className:'marshall'},
              {id:'U1',className:'ump'},
              {id:'U2',className:'ump'},
              {id:'U3',className:'ump'},
-             {id:'VOL',className:'cam'},
-             {id:'WEA',className:'cam'},
+             //{id:'VOL',className:'cam'},
+             //{id:'WEA',className:'cam'},
              {id:'NZL',className:'nzl'}];
 
 var track_points = {};
@@ -208,7 +237,7 @@ var updateBoatPos = function(pos) {
 
 map.on("viewreset",updateView)
       </script>
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
   </body>
 </html>
 

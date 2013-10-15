@@ -100,6 +100,13 @@
         <input type="text" class="slider" value="0" id="time-slider" >
       </div>
       <script>
+
+var formatDate = d3.time.format('%d:%m:%Y');
+var formatTime = d3.time.format('%H:%M:%S.%L');
+var format = d3.time.format('%d:%m:%Y %H:%M:%S.%L %Z');
+
+var timeMapper = d3.time.scale().domain([formatTime.parse("13:00:00.000"),formatTime.parse("13:40:04.000")]).range([0,1000]);
+
 // Add the time slider
 var ts = $('#time-slider').slider({min:0,max:1000,
                     step:1,
@@ -169,9 +176,9 @@ var boats = [{id:'USA',className:'usa'},
              //{id:'HL2',className:'heli'},
              //{id:'RGR',className:'marshall'},
              //{id:'SHA',className:'marshall'},
-             {id:'U1',className:'ump'},
-             {id:'U2',className:'ump'},
-             {id:'U3',className:'ump'},
+             //{id:'U1',className:'ump'},
+             //{id:'U2',className:'ump'},
+             //{id:'U3',className:'ump'},
              //{id:'VOL',className:'cam'},
              //{id:'WEA',className:'cam'},
              {id:'NZL',className:'nzl'}];
@@ -182,6 +189,7 @@ var track_points = {};
 // Add boat-group
 var boatGroup = g.append('g').attr('id','boat-group');
 
+
 // Loop through the desired boats and read the CSV file then draw track
 // Each loaded CSV gets wrapped as a closure so arguments hold up
 for (var i = 0; i < boats.length; i++) (function(i) {
@@ -189,7 +197,11 @@ for (var i = 0; i < boats.length; i++) (function(i) {
     var boat_class = boats[i].className;
     d3.csv('../data/130925/csv/20130925130025-NAV-'+boat_id+'.csv')
         .row(function(d) { 
-            return {lat:d.Lat, lon:d.Lon}; })
+            return {lat:d.Lat, 
+                    lon:d.Lon, 
+                    date:formatDate.parse(d.Date),
+                    time:formatTime.parse(d.LocalTime),
+                    both:format.parse(d.Date+' '+d.LocalTime+' '+d.Zone+'00')}; })
         .get(function(error,rows) { 
           
             // Save the loaded data to global object
@@ -240,12 +252,23 @@ var updateView = function() {
     }
 };
 
+// Bisector accessor function to quickly find the index of the track array associated
+// with the currently selected time
+var bisect = d3.bisector(function(d) { return d.time; }).right 
+
 // Move the marker to a new position in time
 var updateBoatPos = function(pos) {
+    var time = timeMapper.invert(pos);
     for (var i = 0; i < boats.length; i++) {
         var boat_id = boats[i].id;
+
+        // Find the index in the track_points object that corresponds to
+        // the correct moment in time (since boats have different times)
+        var point = bisect(track_points[boat_id],time); 
+        
+        // Move boat
         g.select('#boat-marker-'.concat(boat_id))
-                .data([project(track_points[boat_id][pos])])
+                .data([project(track_points[boat_id][point])])
             .attr('cx',function(d) { return d.x; })
             .attr('cy',function(d) { return d.y; });
     }

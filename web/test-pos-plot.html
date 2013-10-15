@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test Leaflet map</title>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <style>
+#map { height: 400px; }
+
+.dot {
+    opacity: .5;
+    stroke: none;
+    fill: black;
+}
+
+.usa {
+    fill: black;
+}
+
+    </style>
+  </head>
+  <body>
+      <div id="map"></div>
+      <script>
+var map = L.map('map').setView([37.82022604148547, -122.4294090270996], 13);
+L.tileLayer('http://{s}.tile.cloudmade.com/78f159c3ec8c4290b7854cf0471003ec/997/256/{z}/{x}/{y}.png', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="http://cloudmade.com">CloudMade</a>',
+    maxZoom: 18
+}).addTo(map);
+
+map._initPathRoot() 
+
+var svg = d3.select("#map").select("svg"),
+    g = svg.append("g").attr('id','#d3-layer');
+
+function project(x) {
+  return map.latLngToLayerPoint(new L.LatLng(x.x, x.y));
+}
+
+
+var start = [{x:37.8276971,y:-122.4624699}];
+var startPt = project(start[0]);
+
+g.selectAll('.point')
+        .data([startPt])
+    .enter().append('svg:circle')
+        .attr('class','dot usa')
+        .attr('r',2)
+        .attr('cx',function(d) { return d.x; })
+        .attr('cy',function(d) { return d.y; });
+
+
+      </script>
+  </body>
+</html>
+

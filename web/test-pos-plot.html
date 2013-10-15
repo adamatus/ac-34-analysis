@@ -35,20 +35,37 @@ var svg = d3.select("#map").select("svg"),
     g = svg.append("g").attr('id','#d3-layer');
 
 function project(x) {
-  return map.latLngToLayerPoint(new L.LatLng(x.x, x.y));
+  return map.latLngToLayerPoint(new L.LatLng(x.lat, x.lon));
 }
 
+var usa_points = [];
 
-var start = [{x:37.8276971,y:-122.4624699}];
-var startPt = project(start[0]);
+//d3.csv('../data/130925/csv/20130925130025-NAV-USA-start.csv',function(d) {
+d3.csv('../data/130925/csv/20130925130025-NAV-USA-start.csv')
+    .row(function(d) { 
+        return {lat:d.Lat, lon:d.Lon}; })
+    .get(function(error,rows) { 
+      
+        usa_points = rows;  
 
-g.selectAll('.point')
-        .data([startPt])
-    .enter().append('svg:circle')
-        .attr('class','dot usa')
-        .attr('r',2)
-        .attr('cx',function(d) { return d.x; })
-        .attr('cy',function(d) { return d.y; });
+        g.selectAll('.dot')
+                .data(usa_points.map(function(d) { return project(d); }),function(d,i) { return i; })
+            .enter().append('svg:circle')
+                .attr('class','dot usa')
+                .attr('r',2)
+                .attr('cx',function(d) { return d.x; })
+                .attr('cy',function(d) { return d.y; })
+                .on('mouseover',function(d) { d3.select(this).style('fill','red') })
+                .on('mouseout',function(d) { d3.select(this).style('fill','black') });
+
+        map.on("viewreset",function() {
+            g.selectAll('.dot')
+                    .data(usa_points.map(function(d) { return project(d); }),function(d,i) { return i; })
+                    .attr('cx',function(d) { console.log('Updating dx'); return d.x; })
+                    .attr('cy',function(d) { return d.y; });
+            });
+            
+     });
 
 
       </script>

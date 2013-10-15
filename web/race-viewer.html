@@ -18,6 +18,10 @@
     fill: black;
 }
 
+.dot-nzl {
+    fill: black;
+}
+
 .track {
     opacity: 1;
     stroke: black;
@@ -33,6 +37,25 @@
     stroke: red;
 }
 
+.track-heli {
+    stroke: blue;
+}
+
+.track-ump {
+    stroke: yellow;
+}
+
+.track-cam {
+    stroke: green;
+}
+
+.track-rc {
+    stroke: white;
+}
+
+.track-marshall {
+    stroke: gray;
+}
     </style>
   </head>
   <body>
@@ -69,7 +92,8 @@ var marks = [{lat:37.820190,lon:-122.456763,label:'Entry'},
              {lat:37.81039,lon:-122.3993,label:'Finish Gate (Port)'}];
 
 
-g.selectAll('.mark')
+var markGroup = g.append('g').attr('id','mark-group');
+markGroup.selectAll('.mark')
         .data(marks.map(function(d) { return project(d); }),function(d,i) { return i; })
     .enter().append('svg:circle')
         .attr('class','mark')
@@ -78,63 +102,38 @@ g.selectAll('.mark')
         .attr('cy',function(d) { return d.y; })
         .on('mouseout',function(d,i) { console.log(marks[i].label); });
 
-var usa_points = [];
-var nzl_points = [];
+var boats = [{id:'USA',className:'usa'},
+             {id:'PRO',className:'rc'},
+             {id:'HL1',className:'heli'},
+             {id:'HL2',className:'heli'},
+             {id:'RGR',className:'marshall'},
+             {id:'SHA',className:'marshall'},
+             {id:'U1',className:'ump'},
+             {id:'U2',className:'ump'},
+             {id:'U3',className:'ump'},
+             {id:'VOL',className:'cam'},
+             {id:'WEA',className:'cam'},
+             {id:'NZL',className:'nzl'}];
 
-var do_dots = false;
+var track_points = {};
 
-d3.csv('../data/130925/csv/20130925130025-NAV-USA.csv')
-    .row(function(d) { 
-        return {lat:d.Lat, lon:d.Lon}; })
-    .get(function(error,rows) { 
-      
-        usa_points = rows;  
-
-        if (do_dots) {
-            g.selectAll('.dot-usa')
-                    .data(usa_points.map(function(d) { return project(d); }),function(d,i) { return i; })
-                .enter().append('svg:circle')
-                    .attr('class','dot dot-usa')
-                    .attr('r',2)
-                    .attr('cx',function(d) { return d.x; })
-                    .attr('cy',function(d) { return d.y; })
-                    .on('mouseover',function(d) { d3.select(this).style('fill','red') })
-                    .on('mouseout',function(d) { d3.select(this).style('fill','black') });
-        }
-
-        g.append('svg:path')
-                .attr("d",track(usa_points.map(function(d) { return project(d); })))
-                .attr('class','track track-usa');
-
-            
-     });
-
-d3.csv('../data/130925/csv/20130925130025-NAV-NZL.csv')
-    .row(function(d) { 
-        return {lat:d.Lat, lon:d.Lon}; })
-    .get(function(error,rows) { 
-      
-        nzl_points = rows;  
-
-        if (do_dots) {
-            g.selectAll('.dot-nzl')
-                    .data(nzl_points.map(function(d) { return project(d); }),function(d,i) { return i; })
-                .enter().append('svg:circle')
-                    .attr('class','dot dot-nzl')
-                    .attr('r',2)
-                    .attr('cx',function(d) { return d.x; })
-                    .attr('cy',function(d) { return d.y; })
-                    .on('mouseover',function(d) { d3.select(this).style('fill','red') })
-                    .on('mouseout',function(d) { d3.select(this).style('fill','black') });
-        }
-
-        g.append('svg:path')
-                .attr("d",track(nzl_points.map(function(d) { return project(d); })))
-                .attr('class','track track-nzl');
-            
-        map.on("viewreset",updateView)
-     });
-
+// Each loaded CSV gets wrapped as a closure so arguments hold up
+for (var i = 0; i < boats.length; i++) (function(i) {
+    var boat_id = boats[i].id;
+    var boat_class = boats[i].className;
+    d3.csv('../data/130925/csv/20130925130025-NAV-'+boat_id+'.csv')
+        .row(function(d) { 
+            return {lat:d.Lat, lon:d.Lon}; })
+        .get(function(error,rows) { 
+          
+            track_points[boat_id] = rows;  
+            g.append('svg:path')
+                    .attr("d",track(track_points[boat_id].map(function(d) { return project(d); })))
+                    .attr('id','track-'.concat(boat_id))
+                    .attr('class','track track-'.concat(boat_class));
+                
+         });
+})(i);
 
 var updateView = function() {
     g.selectAll('.mark')
@@ -142,27 +141,16 @@ var updateView = function() {
         .attr('cx',function(d) { return d.x; })
         .attr('cy',function(d) { return d.y; });
     
-    if (do_dots) {
-        g.selectAll('.dot-usa')
-            .data(usa_points.map(function(d) { return project(d); }),function(d,i) { return i; })
-            .attr('cx',function(d) { return d.x; })
-            .attr('cy',function(d) { return d.y; });
-
-        g.selectAll('.dot-nzl')
-            .data(nzl_points.map(function(d) { return project(d); }),function(d,i) { return i; })
-            .attr('cx',function(d) { return d.x; })
-            .attr('cy',function(d) { return d.y; });
+    for (var i = 0; i < boats.length; i++) {
+        var boat_id = boats[i].id;
+        g.selectAll('#track-'.concat(boat_id))
+            .attr("d",track(track_points[boat_id].map(function(d) { return project(d); })))
     }
 
 
-    g.selectAll('.track-usa')
-        .attr("d",track(usa_points.map(function(d) { return project(d); })))
-
-    g.selectAll('.track-nzl')
-        .attr("d",track(nzl_points.map(function(d) { return project(d); })))
-
 };
 
+map.on("viewreset",updateView)
       </script>
   </body>
 </html>

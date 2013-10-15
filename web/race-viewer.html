@@ -92,9 +92,6 @@
     width: 700px;
 }
 
-#time-slider {
-    width: 700px;
-}
     </style>
   </head>
   <body>
@@ -103,9 +100,8 @@
         <input type="text" class="slider" value="0" id="time-slider" >
       </div>
       <script>
-$('#time-slider').slider({
-                    min:0,
-                    max:1000,
+// Add the time slider
+var ts = $('#time-slider').slider({min:0,max:1000,
                     step:1,
                     value:0,
                     selection:'before',
@@ -117,26 +113,32 @@ $('#time-slider').slider({
                 updateBoatPos(ev.value);
                 });
 
-
+// Add the base CloudMade map
 var map = L.map('map').setView([37.82022604148547, -122.4294090270996], 13);
 L.tileLayer('http://{s}.tile.cloudmade.com/78f159c3ec8c4290b7854cf0471003ec/997/256/{z}/{x}/{y}.png', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="http://cloudmade.com">CloudMade</a>',
     maxZoom: 18
 }).addTo(map);
 
+// Add initial SVG layer that we will build on
 map._initPathRoot() 
 
+// Add svg group for all custom drawing
 var svg = d3.select("#map").select("svg"),
     g = svg.append("g").attr('id','#d3-layer');
 
+// Function to map Lat/Lon to current svg X/Y
 function project(x) {
   return map.latLngToLayerPoint(new L.LatLng(x.lat, x.lon));
 }
 
+// Basic line drawing function
 var track = d3.svg.line()
     .x(function(d) { return d.x })
     .y(function(d) { return d.y });
 
+// Hand entered positions for all race marks
+// Computed by taking mean pos of the specific mark boats GPS track
 var marks = [{lat:37.820190,lon:-122.456763,label:'Entry'},
              {lat:37.81705,lon:-122.455,label:'Start Gate (Stb)'},
              {lat:37.81746,lon:-122.4519,label:'Start Gate (Port)'},
@@ -148,7 +150,7 @@ var marks = [{lat:37.820190,lon:-122.456763,label:'Entry'},
              {lat:37.81023,lon:-122.4012,label:'Finish Gate (Stb)'},
              {lat:37.81039,lon:-122.3993,label:'Finish Gate (Port)'}];
 
-
+// Add marks to mark-group
 var markGroup = g.append('g').attr('id','mark-group');
 markGroup.selectAll('.mark')
         .data(marks.map(function(d) { return project(d); }),function(d,i) { return i; })
@@ -159,8 +161,8 @@ markGroup.selectAll('.mark')
         .attr('cy',function(d) { return d.y; })
         .on('mouseout',function(d,i) { console.log(marks[i].label); });
 
-var boatGroup = g.append('g').attr('id','boat-group');
 
+// List of boats to load/draw
 var boats = [{id:'USA',className:'usa'},
              //{id:'PRO',className:'rc'},
              //{id:'HL1',className:'heli'},
@@ -174,8 +176,13 @@ var boats = [{id:'USA',className:'usa'},
              //{id:'WEA',className:'cam'},
              {id:'NZL',className:'nzl'}];
 
+// Big object to hold all track points (Probably not the most efficient)
 var track_points = {};
 
+// Add boat-group
+var boatGroup = g.append('g').attr('id','boat-group');
+
+// Loop through the desired boats and read the CSV file then draw track
 // Each loaded CSV gets wrapped as a closure so arguments hold up
 for (var i = 0; i < boats.length; i++) (function(i) {
     var boat_id = boats[i].id;
@@ -185,15 +192,21 @@ for (var i = 0; i < boats.length; i++) (function(i) {
             return {lat:d.Lat, lon:d.Lon}; })
         .get(function(error,rows) { 
           
+            // Save the loaded data to global object
             track_points[boat_id] = rows;  
+
+            // Create a group for the specific boat
             var boatTrack = boatGroup.append('svg:g')
                 .attr('id','boat-group-'.concat(boat_id))
                 .attr('class','boat-group');
+
+            // Add the track to the boat group
             boatTrack.append('svg:path')
                     .attr("d",track(track_points[boat_id].map(function(d) { return project(d); })))
                     .attr('id','track-'.concat(boat_id))
                     .attr('class','track track-'.concat(boat_class));
 
+            // Add the boat position marker to the boat group
             boatTrack.selectAll('.boat-marker')
                     .data([project(track_points[boat_id][0])])
                 .enter().append('svg:circle')
@@ -205,6 +218,8 @@ for (var i = 0; i < boats.length; i++) (function(i) {
          });
 })(i);
 
+// Function that gets called on map redraw (usually zoom) to fix plotted
+// positions so they correspond to proper lat/lon
 var updateView = function() {
     // Update mark positions
     g.selectAll('.mark')
@@ -212,6 +227,7 @@ var updateView = function() {
         .attr('cx',function(d) { return d.x; })
         .attr('cy',function(d) { return d.y; });
     
+    // Update boat tracks and marker positions
     for (var i = 0; i < boats.length; i++) {
         var boat_id = boats[i].id;
         g.select('#track-'.concat(boat_id))
@@ -224,6 +240,7 @@ var updateView = function() {
     }
 };
 
+// Move the marker to a new position in time
 var updateBoatPos = function(pos) {
     for (var i = 0; i < boats.length; i++) {
         var boat_id = boats[i].id;

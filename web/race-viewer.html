@@ -190,9 +190,18 @@ var updateView = function() {
             .attr('cx',function(d) { return d.x; })
             .attr('cy',function(d) { return d.y; });
     }
-
-
 };
+
+var updateBoatPos = function(pos) {
+    for (var i = 0; i < boats.length; i++) {
+        var boat_id = boats[i].id;
+        g.select('#boat-marker-'.concat(boat_id))
+                .data([project(track_points[boat_id][pos])])
+            .attr('cx',function(d) { return d.x; })
+            .attr('cy',function(d) { return d.y; });
+    }
+};
+
 
 map.on("viewreset",updateView)
       </script>

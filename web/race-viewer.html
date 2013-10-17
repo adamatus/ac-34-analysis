@@ -172,19 +172,18 @@ markGroup.selectAll('.mark')
 // List of boats to load/draw
 var boats = [{id:'USA',className:'usa'},
              //{id:'PRO',className:'rc'},
-             {id:'HL1',className:'heli'},
+             //{id:'HL1',className:'heli'},
              //{id:'HL2',className:'heli'},
              //{id:'RGR',className:'marshall'},
              //{id:'SHA',className:'marshall'},
              {id:'U1',className:'ump'},
-             {id:'U2',className:'ump'},
-             {id:'U3',className:'ump'},
+             //{id:'U2',className:'ump'},
+             //{id:'U3',className:'ump'},
              //{id:'VOL',className:'cam'},
              //{id:'WEA',className:'cam'},
              {id:'NZL',className:'nzl'}];
 
-// Big object to hold all track points (Probably not the most efficient)
-var track_points = {};
+var curTime = timeMapper.invert(0);
 
 // Add boat-group
 var boatGroup = g.append('g').attr('id','boat-group');
@@ -205,7 +204,8 @@ for (var i = 0; i < boats.length; i++) (function(i) {
         .get(function(error,rows) { 
           
             // Save the loaded data to global object
-            track_points[boat_id] = rows;  
+            //track_points[boat_id] = rows;  
+            boats[i].tracks = rows;
 
             // Create a group for the specific boat
             var boatTrack = boatGroup.append('svg:g')
@@ -214,13 +214,15 @@ for (var i = 0; i < boats.length; i++) (function(i) {
 
             // Add the track to the boat group
             boatTrack.append('svg:path')
-                    .attr("d",track(track_points[boat_id].map(function(d) { return project(d); })))
+                    .attr("d",track(boats[i].tracks.map(function(d) { return project(d); })))
                     .attr('id','track-'.concat(boat_id))
                     .attr('class','track track-'.concat(boat_class));
 
+            var point = bisect(boats[i].tracks,curTime); 
+
             // Add the boat position marker to the boat group
             boatTrack.selectAll('.boat-marker')
-                    .data([project(track_points[boat_id][0])])
+                    .data([project(boats[i].tracks[point])])
                 .enter().append('svg:circle')
                     .attr('id','boat-marker-'.concat(boat_id))
                     .attr('class','boat-marker boat-marker-'.concat(boat_class))
@@ -243,10 +245,12 @@ var updateView = function() {
     for (var i = 0; i < boats.length; i++) {
         var boat_id = boats[i].id;
         g.select('#track-'.concat(boat_id))
-            .attr("d",track(track_points[boat_id].map(function(d) { return project(d); })))
+            .attr("d",track(boats[i].tracks.map(function(d) { return project(d); })))
+
+        var point = bisect(boats[i].tracks,curTime); 
 
         g.select('#boat-marker-'.concat(boat_id))
-                .data([project(track_points[boat_id][0])])
+                .data([project(boats[i].tracks[point])])
             .attr('cx',function(d) { return d.x; })
             .attr('cy',function(d) { return d.y; });
     }
@@ -258,19 +262,19 @@ var bisect = d3.bisector(function(d) { return d.time; }).right
 
 // Move the marker to a new position in time
 var updateBoatPos = function(pos) {
-    var time = timeMapper.invert(pos);
+    curTime = timeMapper.invert(pos);
     for (var i = 0; i < boats.length; i++) {
         var boat_id = boats[i].id;
 
         // Find the index in the track_points object that corresponds to
         // the correct moment in time (since boats have different times)
-        var point = bisect(track_points[boat_id],time); 
+        var point = bisect(boats[i].tracks,curTime); 
         
-        if (point < track_points[boat_id].length)
+        if (point < boats[i].tracks.length)
         {
         // Move boat
             g.select('#boat-marker-'.concat(boat_id))
-                    .data([project(track_points[boat_id][point])])
+                    .data([project(boats[i].tracks[point])])
                 .attr('cx',function(d) { return d.x; })
                 .attr('cy',function(d) { return d.y; });
         }

@@ -172,13 +172,13 @@ markGroup.selectAll('.mark')
 // List of boats to load/draw
 var boats = [{id:'USA',className:'usa'},
              //{id:'PRO',className:'rc'},
-             //{id:'HL1',className:'heli'},
+             {id:'HL1',className:'heli'},
              //{id:'HL2',className:'heli'},
              //{id:'RGR',className:'marshall'},
              //{id:'SHA',className:'marshall'},
-             //{id:'U1',className:'ump'},
-             //{id:'U2',className:'ump'},
-             //{id:'U3',className:'ump'},
+             {id:'U1',className:'ump'},
+             {id:'U2',className:'ump'},
+             {id:'U3',className:'ump'},
              //{id:'VOL',className:'cam'},
              //{id:'WEA',className:'cam'},
              {id:'NZL',className:'nzl'}];
@@ -266,11 +266,14 @@ var updateBoatPos = function(pos) {
         // the correct moment in time (since boats have different times)
         var point = bisect(track_points[boat_id],time); 
         
+        if (point < track_points[boat_id].length)
+        {
         // Move boat
-        g.select('#boat-marker-'.concat(boat_id))
-                .data([project(track_points[boat_id][point])])
-            .attr('cx',function(d) { return d.x; })
-            .attr('cy',function(d) { return d.y; });
+            g.select('#boat-marker-'.concat(boat_id))
+                    .data([project(track_points[boat_id][point])])
+                .attr('cx',function(d) { return d.x; })
+                .attr('cy',function(d) { return d.y; });
+        }
     }
 };
 

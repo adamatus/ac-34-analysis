@@ -113,7 +113,7 @@ var ts = $('#time-slider').slider({min:0,max:1000,
                     value:0,
                     selection:'before',
                     formater: function(value) {
-                                return 'Current value: '+value;
+                                return timeMapper.invert(value);
                               }
                   })
         .on('slide',function(ev) {

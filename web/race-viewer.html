@@ -176,7 +176,7 @@ var boats = [{id:'USA',className:'usa'},
              //{id:'HL2',className:'heli'},
              //{id:'RGR',className:'marshall'},
              //{id:'SHA',className:'marshall'},
-             {id:'U1',className:'ump'},
+//             {id:'U1',className:'ump'},
              //{id:'U2',className:'ump'},
              //{id:'U3',className:'ump'},
              //{id:'VOL',className:'cam'},
@@ -200,9 +200,17 @@ for (var i = 0; i < boats.length; i++) (function(i) {
         .row(function(d) { 
             return {lat:d.Lat, 
                     lon:d.Lon, 
-                    date:formatDate.parse(d.Date),
+                    heading:d.Hdg,
+                    courseOverGround:d.COG,
+                    speedOverGround:d.SOG,
+                    trueWindDir:d.CourseWindDirection,
+                    trueWindSpd:d.CourseWindSpeed,
+                    heel:d.Heel,
+                    pitch:d.Pitch,
+                    //date:formatDate.parse(d.Date),
                     time:formatTime.parse(d.LocalTime),
-                    both:format.parse(d.Date+' '+d.LocalTime+' '+d.Zone+'00')}; })
+                    //both:format.parse(d.Date+' '+d.LocalTime+' '+d.Zone+'00')
+                    }; })
         .get(function(error,rows) { 
           
             // Save the loaded data to global object

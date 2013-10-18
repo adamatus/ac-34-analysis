@@ -186,7 +186,7 @@ var boats = [{id:'USA',className:'usa'},
 var curTime = timeMapper.invert(0);
 
 // Add boat-group
-var boatGroup = g.append('g').attr('id','boat-group');
+var boatLayer = g.append('g').attr('id','boat-group');
 
 
 // Loop through the desired boats and read the CSV file then draw track
@@ -207,30 +207,46 @@ for (var i = 0; i < boats.length; i++) (function(i) {
             //track_points[boat_id] = rows;  
             boats[i].tracks = rows;
 
-            // Create a group for the specific boat
-            var boatTrack = boatGroup.append('svg:g')
-                .attr('id','boat-group-'.concat(boat_id))
-                .attr('class','boat-group');
-
-            // Add the track to the boat group
-            boatTrack.append('svg:path')
-                    .attr("d",track(boats[i].tracks.map(function(d) { return project(d); })))
-                    .attr('id','track-'.concat(boat_id))
-                    .attr('class','track track-'.concat(boat_class));
-
-            var point = bisect(boats[i].tracks,curTime); 
-
-            // Add the boat position marker to the boat group
-            boatTrack.selectAll('.boat-marker')
-                    .data([project(boats[i].tracks[point])])
-                .enter().append('svg:circle')
-                    .attr('id','boat-marker-'.concat(boat_id))
-                    .attr('class','boat-marker boat-marker-'.concat(boat_class))
-                    .attr('r',3)
-                    .attr('cx',function(d) { return d.x; })
-                    .attr('cy',function(d) { return d.y; });
          });
 })(i);
+
+
+var updateBoats = function () {
+        // Create a group for the specific boat
+        var boatGroup = boatLayer.selectAll('.boat-group')
+                .data(boats,function(d) { return d.id });
+
+        var newBoatGroup = boatGroup.enter().append('svg:g')
+                .attr('id',function(d) { return 'boat-group-'.concat(d.id); })
+                .attr('class','boat-group');
+            
+        // Update the existing boat tracks
+        boatGroup.selectAll('.track')
+                .attr("d",function(d) { return track(d.tracks.map(function(d) { return project(d); })) });
+
+        // Add the new tracks to the boat group
+        newBoatGroup.append('svg:path')
+                .attr("d",function(d) { return track(d.tracks.map(function(d) { return project(d); })) })
+                .attr('id',function(d) { return 'track-'.concat(d.id); })
+                .attr('class',function(d) { return 'track track-'.concat(d.className); });
+
+        // FIXME Figure out time better
+        //var point = bisect(boats[i].tracks,curTime); 
+        var point = 0;
+
+        // Update the existing boat markers
+        boatGroup.selectAll('.boat-marker')
+                .attr('cx',function(d) { return project(d.tracks[point]).x; })
+                .attr('cy',function(d) { return project(d.tracks[point]).y; });
+
+        // Add new boat markers
+        newBoatGroup.append('svg:circle')
+                .attr('id',function(d) { return 'boat-marker-'.concat(d.id); })
+                .attr('class',function(d) { return 'boat-marker boat-marker-'.concat(d.className); })
+                .attr('r',3)
+                .attr('cx',function(d) { return project(d.tracks[point]).x; })
+                .attr('cy',function(d) { return project(d.tracks[point]).y; });
+}
 
 // Function that gets called on map redraw (usually zoom) to fix plotted
 // positions so they correspond to proper lat/lon
@@ -241,19 +257,7 @@ var updateView = function() {
         .attr('cx',function(d) { return d.x; })
         .attr('cy',function(d) { return d.y; });
     
-    // Update boat tracks and marker positions
-    for (var i = 0; i < boats.length; i++) {
-        var boat_id = boats[i].id;
-        g.select('#track-'.concat(boat_id))
-            .attr("d",track(boats[i].tracks.map(function(d) { return project(d); })))
-
-        var point = bisect(boats[i].tracks,curTime); 
-
-        g.select('#boat-marker-'.concat(boat_id))
-                .data([project(boats[i].tracks[point])])
-            .attr('cx',function(d) { return d.x; })
-            .attr('cy',function(d) { return d.y; });
-    }
+    updateBoats();
 };
 
 // Bisector accessor function to quickly find the index of the track array associated
@@ -263,6 +267,9 @@ var bisect = d3.bisector(function(d) { return d.time; }).right
 // Move the marker to a new position in time
 var updateBoatPos = function(pos) {
     curTime = timeMapper.invert(pos);
+    // FIXME We should be able to do without this loop using d3 selectors
+    // and figuring out the timepoint in the cx/cy update, assuming it's not too slow
+    // to do the bisection multiple times
     for (var i = 0; i < boats.length; i++) {
         var boat_id = boats[i].id;
 
@@ -270,13 +277,14 @@ var updateBoatPos = function(pos) {
         // the correct moment in time (since boats have different times)
         var point = bisect(boats[i].tracks,curTime); 
         
+        // Don't go past the end of the track
+        // FIXME Maybe we should be hiding marker at this point? Or fading it out?
         if (point < boats[i].tracks.length)
         {
-        // Move boat
+            // Move boat
             g.select('#boat-marker-'.concat(boat_id))
-                    .data([project(boats[i].tracks[point])])
-                .attr('cx',function(d) { return d.x; })
-                .attr('cy',function(d) { return d.y; });
+                .attr('cx',function(d) { return project(d.tracks[point]).x; })
+                .attr('cy',function(d) { return project(d.tracks[point]).y; });
         }
     }
 };

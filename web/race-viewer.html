@@ -220,6 +220,20 @@ var updateBoatLoadingProgress = function(progress) {
         updateBoats();
     }
 };
+// Bisector accessor function to quickly find the index of the track array associated
+// with the currently selected time
+var bisect = d3.bisector(function(d) { return d.time; }).right 
+
+var getBoatPosIdx = function(d) {
+    // FIXME We need to do something smarter if the current timepoint is not in
+    // the array... Right now we are only looking to see if we have gone past
+    // the end... What if the current time is before we have any data? Should
+    // fade out or hide the marker maybe? Do the same thing on boat addition.
+
+    var point = bisect(d.tracks,curTime); 
+    point = point < d.tracks.length ? point : d.tracks.length-1
+    return project(d.tracks[point]); 
+} 
 
 var updateBoats = function () {
         // Create a group for the specific boat
@@ -242,16 +256,16 @@ var updateBoats = function () {
 
         // Update the existing boat markers
         boatGroup.selectAll('.boat-marker')
-                .attr('cx',function(d) { var point = bisect(d.tracks,curTime); return project(d.tracks[point < d.tracks.length ? point : d.tracks.length-1]).x; })
-                .attr('cy',function(d) { var point = bisect(d.tracks,curTime); return project(d.tracks[point < d.tracks.length ? point : d.tracks.length-1]).y; });
+                .attr('cx',function(d) { return getBoatPosIdx(d).x; })
+                .attr('cy',function(d) { return getBoatPosIdx(d).y; });
 
         // Add new boat markers
         newBoatGroup.append('svg:circle')
                 .attr('id',function(d) { return 'boat-marker-'.concat(d.id); })
                 .attr('class',function(d) { return 'boat-marker boat-marker-'.concat(d.className); })
                 .attr('r',3)
-                .attr('cx',function(d) { var point = bisect(d.tracks,curTime); return project(d.tracks[point < d.tracks.length ? point : d.tracks.length-1]).x; })
-                .attr('cy',function(d) { var point = bisect(d.tracks,curTime); return project(d.tracks[point < d.tracks.length ? point : d.tracks.length-1]).y; });
+                .attr('cx',function(d) { return getBoatPosIdx(d).x; })
+                .attr('cy',function(d) { return getBoatPosIdx(d).y; });
 }
 
 // Function that gets called on map redraw (usually zoom) to fix plotted
@@ -266,22 +280,13 @@ var updateView = function() {
     updateBoats();
 };
 
-// Bisector accessor function to quickly find the index of the track array associated
-// with the currently selected time
-var bisect = d3.bisector(function(d) { return d.time; }).right 
-
 // Move the marker to a new position in time
 var updateBoatPos = function(pos) {
     curTime = timeMapper.invert(pos);
 
     g.selectAll('.boat-marker')
-        .attr('cx',function(d) { var point = bisect(d.tracks,curTime); return project(d.tracks[point < d.tracks.length ? point : d.tracks.length-1]).x; })
-        .attr('cy',function(d) { var point = bisect(d.tracks,curTime); return project(d.tracks[point < d.tracks.length ? point : d.tracks.length-1]).y; });
-
-    // FIXME We need to do something smarter if the current timepoint is not in
-    // the array... Right now we are only looking to see if we have gone past
-    // the end... What if the current time is before we have any data? Should
-    // fade out or hide the marker maybe? Do the same thing on boat addition.
+        .attr('cx',function(d) { return getBoatPosIdx(d).x; })
+        .attr('cy',function(d) { return getBoatPosIdx(d).y; });
 };
 
 map.on("viewreset",updateView)

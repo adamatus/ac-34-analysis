@@ -59,11 +59,17 @@
     fill: none;
 }
 
+.boat-stats-velocity {
+    stroke-width: 2px;
+    stroke: black;
+}
+
 .track-usa {
     stroke: black;
 }
 
-.track-nzl {
+.track-nzl,
+.boat-stats-velocity-nzl {
     stroke: red;
 }
 
@@ -91,6 +97,7 @@
     margin: 10px;
     width: 700px;
 }
+
 
     </style>
   </head>
@@ -221,6 +228,14 @@ for (var i = 0; i < boats.length; i++) (function(i) {
          });
 })(i);
 
+function toDegrees (angle) {
+      return angle * (180 / Math.PI);
+}
+
+function toRadians (angle) {
+      return angle * (Math.PI / 180);
+}
+
 var updateBoatLoadingProgress = function(progress) {
     // FIXME Actually show some sort of progress bar
     console.log(progress);
@@ -243,6 +258,12 @@ var getBoatPosIdx = function(d) {
     return project(d.tracks[point]); 
 } 
 
+var getBoatAtTime = function(d) { 
+    var point = bisect(d.tracks,curTime);
+    point = point < d.tracks.length ? point : d.tracks.length-1
+    return d.tracks[point];
+}
+
 var updateBoats = function () {
         // Create a group for the specific boat
         var boatGroup = boatLayer.selectAll('.boat-group')
@@ -262,18 +283,41 @@ var updateBoats = function () {
                 .attr('id',function(d) { return 'track-'.concat(d.id); })
                 .attr('class',function(d) { return 'track track-'.concat(d.className); });
 
-        // Update the existing boat markers
-        boatGroup.selectAll('.boat-marker')
-                .attr('cx',function(d) { return getBoatPosIdx(d).x; })
-                .attr('cy',function(d) { return getBoatPosIdx(d).y; });
+        // Add new boat marker groups
+        var newBoatMarkerGroup = newBoatGroup.append('svg:g')
+                .attr('id',function(d) { return 'boat-icon-'.concat(d.id); })
+                .attr('class',function(d) { return 'boat-icon boat-icon-'.concat(d.className); })
+                .attr('transform',function(d) { var pt = getBoatPosIdx(d);
+                        return 'translate('+pt.x+','+pt.y+')'; });
 
-        // Add new boat markers
-        newBoatGroup.append('svg:circle')
+        // Add new boat location markers
+        newBoatMarkerGroup.append('svg:circle')
                 .attr('id',function(d) { return 'boat-marker-'.concat(d.id); })
                 .attr('class',function(d) { return 'boat-marker boat-marker-'.concat(d.className); })
                 .attr('r',3)
-                .attr('cx',function(d) { return getBoatPosIdx(d).x; })
-                .attr('cy',function(d) { return getBoatPosIdx(d).y; });
+                .attr('cx',0)
+                .attr('cy',0);
+
+        // Add new boat stats group
+        var newBoatStats = newBoatMarkerGroup.append('svg:g')
+                .attr('id',function(d) { return 'boat-stats-'.concat(d.id); })
+                .attr('class',function(d) { return 'boat-stats boat-stats-'.concat(d.className); })
+
+        // Add new boat velocity arrow
+        newBoatStats.append('svg:line')
+            .attr('id',function(d) { return 'boat-stats-velocity-'.concat(d.id); })
+            .attr('class',function(d) { return 'boat-stats-velocity boat-stats-velocity-'.concat(d.className); })
+            .attr('x1',0).attr('y1',0)
+            .attr('x2',function(d) { 
+                    var d = getBoatAtTime(d); 
+                    return d.speedOverGround * Math.cos(toRadians(d.courseOverGround)-Math.PI/2); })
+            .attr('y2',function(d) { 
+                    var d = getBoatAtTime(d); 
+                    return d.speedOverGround * Math.sin(toRadians(d.courseOverGround)-Math.PI/2); });
+
+        // Update existing specific boat icon details
+        updateBoatPos(ts.slider().val());
+
 }
 
 // Function that gets called on map redraw (usually zoom) to fix plotted
@@ -290,11 +334,23 @@ var updateView = function() {
 
 // Move the marker to a new position in time
 var updateBoatPos = function(pos) {
+
     curTime = timeMapper.invert(pos);
 
-    g.selectAll('.boat-marker')
-        .attr('cx',function(d) { return getBoatPosIdx(d).x; })
-        .attr('cy',function(d) { return getBoatPosIdx(d).y; });
+    // Move marker to current location
+    var icons = g.selectAll('.boat-icon')
+            .attr('transform',function(d) { var pt = getBoatPosIdx(d);
+                    return 'translate('+pt.x+','+pt.y+')'; });
+
+    // Update boat stats
+    icons.selectAll('.boat-stats-velocity')
+            .attr('x2',function(d) { 
+                    var d = getBoatAtTime(d); 
+                    return d.speedOverGround * Math.cos(toRadians(d.courseOverGround)-Math.PI/2); })
+            .attr('y2',function(d) { 
+                    var d = getBoatAtTime(d); 
+                    return d.speedOverGround * Math.sin(toRadians(d.courseOverGround)-Math.PI/2); });
+
 };
 
 map.on("viewreset",updateView)

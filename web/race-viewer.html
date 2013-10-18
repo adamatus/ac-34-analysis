@@ -240,22 +240,18 @@ var updateBoats = function () {
                 .attr('id',function(d) { return 'track-'.concat(d.id); })
                 .attr('class',function(d) { return 'track track-'.concat(d.className); });
 
-        // FIXME Figure out time better
-        //var point = bisect(boats[i].tracks,curTime); 
-        var point = 0;
-
         // Update the existing boat markers
         boatGroup.selectAll('.boat-marker')
-                .attr('cx',function(d) { return project(d.tracks[point]).x; })
-                .attr('cy',function(d) { return project(d.tracks[point]).y; });
+                .attr('cx',function(d) { var point = bisect(d.tracks,curTime); return project(d.tracks[point < d.tracks.length ? point : d.tracks.length-1]).x; })
+                .attr('cy',function(d) { var point = bisect(d.tracks,curTime); return project(d.tracks[point < d.tracks.length ? point : d.tracks.length-1]).y; });
 
         // Add new boat markers
         newBoatGroup.append('svg:circle')
                 .attr('id',function(d) { return 'boat-marker-'.concat(d.id); })
                 .attr('class',function(d) { return 'boat-marker boat-marker-'.concat(d.className); })
                 .attr('r',3)
-                .attr('cx',function(d) { return project(d.tracks[point]).x; })
-                .attr('cy',function(d) { return project(d.tracks[point]).y; });
+                .attr('cx',function(d) { var point = bisect(d.tracks,curTime); return project(d.tracks[point < d.tracks.length ? point : d.tracks.length-1]).x; })
+                .attr('cy',function(d) { var point = bisect(d.tracks,curTime); return project(d.tracks[point < d.tracks.length ? point : d.tracks.length-1]).y; });
 }
 
 // Function that gets called on map redraw (usually zoom) to fix plotted
@@ -277,28 +273,16 @@ var bisect = d3.bisector(function(d) { return d.time; }).right
 // Move the marker to a new position in time
 var updateBoatPos = function(pos) {
     curTime = timeMapper.invert(pos);
-    // FIXME We should be able to do without this loop using d3 selectors
-    // and figuring out the timepoint in the cx/cy update, assuming it's not too slow
-    // to do the bisection multiple times
-    for (var i = 0; i < boats.length; i++) {
-        var boat_id = boats[i].id;
 
-        // Find the index in the track_points object that corresponds to
-        // the correct moment in time (since boats have different times)
-        var point = bisect(boats[i].tracks,curTime); 
-        
-        // Don't go past the end of the track
-        // FIXME Maybe we should be hiding marker at this point? Or fading it out?
-        if (point < boats[i].tracks.length)
-        {
-            // Move boat
-            g.select('#boat-marker-'.concat(boat_id))
-                .attr('cx',function(d) { return project(d.tracks[point]).x; })
-                .attr('cy',function(d) { return project(d.tracks[point]).y; });
-        }
-    }
+    g.selectAll('.boat-marker')
+        .attr('cx',function(d) { var point = bisect(d.tracks,curTime); return project(d.tracks[point < d.tracks.length ? point : d.tracks.length-1]).x; })
+        .attr('cy',function(d) { var point = bisect(d.tracks,curTime); return project(d.tracks[point < d.tracks.length ? point : d.tracks.length-1]).y; });
+
+    // FIXME We need to do something smarter if the current timepoint is not in
+    // the array... Right now we are only looking to see if we have gone past
+    // the end... What if the current time is before we have any data? Should
+    // fade out or hide the marker maybe? Do the same thing on boat addition.
 };
-
 
 map.on("viewreset",updateView)
       </script>

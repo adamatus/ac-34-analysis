@@ -189,6 +189,8 @@ var curTime = timeMapper.invert(0);
 var boatLayer = g.append('g').attr('id','boat-group');
 
 
+var loadedBoats = 0;
+
 // Loop through the desired boats and read the CSV file then draw track
 // Each loaded CSV gets wrapped as a closure so arguments hold up
 for (var i = 0; i < boats.length; i++) (function(i) {
@@ -206,10 +208,18 @@ for (var i = 0; i < boats.length; i++) (function(i) {
             // Save the loaded data to global object
             //track_points[boat_id] = rows;  
             boats[i].tracks = rows;
+            updateBoatLoadingProgress(++loadedBoats);
 
          });
 })(i);
 
+var updateBoatLoadingProgress = function(progress) {
+    // FIXME Actually show some sort of progress bar
+    console.log(progress);
+    if (progress == boats.length) {
+        updateBoats();
+    }
+};
 
 var updateBoats = function () {
         // Create a group for the specific boat

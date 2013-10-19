@@ -64,6 +64,11 @@
     stroke: black;
 }
 
+.boat-stats-truewind {
+    stroke-width: 2px;
+    stroke: blue;
+}
+
 .track-usa {
     stroke: black;
 }
@@ -303,6 +308,18 @@ var updateBoats = function () {
                 .attr('id',function(d) { return 'boat-stats-'.concat(d.id); })
                 .attr('class',function(d) { return 'boat-stats boat-stats-'.concat(d.className); })
 
+        // Add new boat true wind arrow
+        newBoatStats.append('svg:line')
+            .attr('id',function(d) { return 'boat-stats-truewind-'.concat(d.id); })
+            .attr('class',function(d) { return 'boat-stats-truewind boat-stats-truewind-'.concat(d.className); })
+            .attr('x1',0).attr('y1',0)
+            .attr('x2',function(d) { 
+                    var d = getBoatAtTime(d); 
+                    return d.trueWindSpd * Math.cos(toRadians(d.trueWindDir)-Math.PI/2); })
+            .attr('y2',function(d) { 
+                    var d = getBoatAtTime(d); 
+                    return d.trueWindSpd * Math.sin(toRadians(d.trueWindDir)-Math.PI/2); });
+
         // Add new boat velocity arrow
         newBoatStats.append('svg:line')
             .attr('id',function(d) { return 'boat-stats-velocity-'.concat(d.id); })
@@ -343,6 +360,13 @@ var updateBoatPos = function(pos) {
                     return 'translate('+pt.x+','+pt.y+')'; });
 
     // Update boat stats
+    icons.selectAll('.boat-stats-truewind')
+            .attr('x2',function(d) { 
+                    var d = getBoatAtTime(d); 
+                    return d.trueWindSpd * Math.cos(toRadians(d.trueWindDir)-Math.PI/2); })
+            .attr('y2',function(d) { 
+                    var d = getBoatAtTime(d); 
+                    return d.trueWindSpd * Math.sin(toRadians(d.trueWindDir)-Math.PI/2); });
     icons.selectAll('.boat-stats-velocity')
             .attr('x2',function(d) { 
                     var d = getBoatAtTime(d); 

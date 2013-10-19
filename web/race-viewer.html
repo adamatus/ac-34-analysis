@@ -69,6 +69,11 @@
     stroke: blue;
 }
 
+.boat-stats-appwind {
+    stroke-width: 2px;
+    stroke: cyan;
+}
+
 .track-usa {
     stroke: black;
 }
@@ -320,6 +325,20 @@ var updateBoats = function () {
                     var d = getBoatAtTime(d); 
                     return d.trueWindSpd * Math.sin(toRadians(d.trueWindDir)-Math.PI/2); });
 
+        // Add new boat apparent wind arrow
+        newBoatStats.append('svg:line')
+            .attr('id',function(d) { return 'boat-stats-appwind-'.concat(d.id); })
+            .attr('class',function(d) { return 'boat-stats-appwind boat-stats-appwind-'.concat(d.className); })
+            .attr('x1',0).attr('y1',0)
+            .attr('x2',function(d) { 
+                    var d = getBoatAtTime(d); 
+                    return (d.trueWindSpd * Math.cos(toRadians(d.trueWindDir)-Math.PI/2)) +
+                           (d.speedOverGround * Math.cos(toRadians(d.courseOverGround)-Math.PI/2)); })
+            .attr('y2',function(d) { 
+                    var d = getBoatAtTime(d); 
+                    return (d.trueWindSpd * Math.sin(toRadians(d.trueWindDir)-Math.PI/2)) + 
+                    	   (d.speedOverGround * Math.sin(toRadians(d.courseOverGround)-Math.PI/2)); });
+
         // Add new boat velocity arrow
         newBoatStats.append('svg:line')
             .attr('id',function(d) { return 'boat-stats-velocity-'.concat(d.id); })
@@ -367,6 +386,15 @@ var updateBoatPos = function(pos) {
             .attr('y2',function(d) { 
                     var d = getBoatAtTime(d); 
                     return d.trueWindSpd * Math.sin(toRadians(d.trueWindDir)-Math.PI/2); });
+    icons.selectAll('.boat-stats-appwind')
+            .attr('x2',function(d) { 
+                    var d = getBoatAtTime(d); 
+                    return (d.trueWindSpd * Math.cos(toRadians(d.trueWindDir)-Math.PI/2)) +
+                           (d.speedOverGround * Math.cos(toRadians(d.courseOverGround)-Math.PI/2)); })
+            .attr('y2',function(d) { 
+                    var d = getBoatAtTime(d); 
+                    return (d.trueWindSpd * Math.sin(toRadians(d.trueWindDir)-Math.PI/2)) + 
+                    	   (d.speedOverGround * Math.sin(toRadians(d.courseOverGround)-Math.PI/2)); });
     icons.selectAll('.boat-stats-velocity')
             .attr('x2',function(d) { 
                     var d = getBoatAtTime(d); 

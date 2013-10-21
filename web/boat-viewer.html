@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>America's Cup 34 Boat Viewer</title>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script language="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+    </style>
+  </head>
+  <body>
+      <div id="main" class="container">
+      </div>
+      <script>
+
+var svg = d3.select("#main").append("svg")
+    .style('height','300px')
+    .style('width','300px');
+
+var x = d3.scale.linear().domain([-30,30]).range([0,300]);
+var y = d3.scale.linear().domain([30,-30]).range([0,300]);
+
+var outline = d3.svg.line()
+    .x(function(d) { return x(d.x) })
+    .y(function(d) { return y(d.y) });
+
+var boat_xml = [];
+d3.xml('../data/130925/history/20130925130025_boats.xml','application/xml',
+function(xml) { 
+    boat_xml = xml;
+    console.log('Done reading xml');
+    processXML();
+});
+
+var processXML = function() {
+    var shapes = boat_xml.documentElement.getElementsByTagName("BoatShape");
+    var which_boat=-1
+    for (var i=0; i < shapes.length; i++) {
+        var id = shapes[i].attributes.getNamedItem('ShapeID').nodeValue
+        if (id == '33') {
+            which_boat = i;
+            break;
+        }
+    }
+
+    var parseVtxList = function(vertices) { 
+        boat_vtx = [];
+        for (var i=0; i < vertices.length; i++) {
+            var Y = vertices[i].attributes.getNamedItem('Y').nodeValue;
+            var X = vertices[i].attributes.getNamedItem('X').nodeValue;
+            boat_vtx.push({x:+X,y:+Y});
+        }    
+        return boat_vtx;
+    };
+
+    var boat_vtx = [];
+    var vertices = shapes[which_boat].getElementsByTagName('Trampoline')[0].getElementsByTagName('Vtx')
+
+    var parts = ['Catamaran','Bowsprit','Trampoline'];
+    svg.selectAll('.boat-part').data(parts).enter().append('svg:path')
+        .attr('d',function(d) { 
+            var list = shapes[which_boat].getElementsByTagName(d)[0].getElementsByTagName('Vtx');
+            return outline(parseVtxList(list))+'Z'; })
+        .style('stroke-width','1px')
+        .style('fill','none')
+        .style('stroke','black');
+
+}
+
+      </script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

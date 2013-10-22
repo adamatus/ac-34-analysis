@@ -281,6 +281,16 @@ var getBoatAtTime = function(d) {
     return d.tracks[point];
 }
 
+var getApparentWind = function(d) { 
+    var d = getBoatAtTime(d); 
+    var x = (d.trueWindSpd * Math.cos(toRadians(d.trueWindDir)-Math.PI/2)) +
+                           (d.speedOverGround * Math.cos(toRadians(d.courseOverGround)-Math.PI/2));
+    var y = (d.trueWindSpd * Math.sin(toRadians(d.trueWindDir)-Math.PI/2)) + 
+                    	   (d.speedOverGround * Math.sin(toRadians(d.courseOverGround)-Math.PI/2)); 
+
+    return {x:x,y:y};
+};
+
 var updateBoats = function () {
         // Create a group for the specific boat
         var boatGroup = boatLayer.selectAll('.boat-group')
@@ -338,13 +348,9 @@ var updateBoats = function () {
             .attr('class',function(d) { return 'boat-stats-appwind boat-stats-appwind-'.concat(d.className); })
             .attr('x1',0).attr('y1',0)
             .attr('x2',function(d) { 
-                    var d = getBoatAtTime(d); 
-                    return (d.trueWindSpd * Math.cos(toRadians(d.trueWindDir)-Math.PI/2)) +
-                           (d.speedOverGround * Math.cos(toRadians(d.courseOverGround)-Math.PI/2)); })
+                return getApparentWind(d).x; })
             .attr('y2',function(d) { 
-                    var d = getBoatAtTime(d); 
-                    return (d.trueWindSpd * Math.sin(toRadians(d.trueWindDir)-Math.PI/2)) + 
-                    	   (d.speedOverGround * Math.sin(toRadians(d.courseOverGround)-Math.PI/2)); });
+                return getApparentWind(d).y; });
 
         // Add new boat velocity arrow
         newBoatStats.append('svg:line')
@@ -368,8 +374,8 @@ var updateBoats = function () {
         newTRs.append('td').text(function(d) { return d.id; });
         newTRs.append('td').text(function(d) { var d = getBoatAtTime(d); return d.speedOverGround; });
         newTRs.append('td').text(function(d) { var d = getBoatAtTime(d); return d.heading; });
-        newTRs.append('td').text(function(d) { var d = getBoatAtTime(d); return d.speedOverGround; });
-        newTRs.append('td').text(function(d) { var d = getBoatAtTime(d); return d.heading; });
+        newTRs.append('td').text(function(d) { return getApparentWind(d).x; });
+        newTRs.append('td').text(function(d) { return getApparentWind(d).y; });
 
         // Update existing specific boat icon details
         updateBoatPos(ts.slider().val());
@@ -408,13 +414,9 @@ var updateBoatPos = function(pos) {
                     return d.trueWindSpd * Math.sin(toRadians(d.trueWindDir)-Math.PI/2); });
     icons.selectAll('.boat-stats-appwind')
             .attr('x2',function(d) { 
-                    var d = getBoatAtTime(d); 
-                    return (d.trueWindSpd * Math.cos(toRadians(d.trueWindDir)-Math.PI/2)) +
-                           (d.speedOverGround * Math.cos(toRadians(d.courseOverGround)-Math.PI/2)); })
+                return getApparentWind(d).x; })
             .attr('y2',function(d) { 
-                    var d = getBoatAtTime(d); 
-                    return (d.trueWindSpd * Math.sin(toRadians(d.trueWindDir)-Math.PI/2)) + 
-                    	   (d.speedOverGround * Math.sin(toRadians(d.courseOverGround)-Math.PI/2)); });
+                return getApparentWind(d).y; })
     icons.selectAll('.boat-stats-velocity')
             .attr('x2',function(d) { 
                     var d = getBoatAtTime(d); 
@@ -429,8 +431,8 @@ var updateBoatPos = function(pos) {
 
     trs.selectAll('td').data(function(d) {
            var id = d.id;
-           var d = getBoatAtTime(d); 
-           return [id, d.speedOverGround, d.heading, d.speedOverGround, d.heading]; })
+           var b = getBoatAtTime(d); 
+           return [id, b.speedOverGround, b.heading, getApparentWind(d).x, getApparentWind(d).y]; })
         .text(function(d) { return d; });
 
 };

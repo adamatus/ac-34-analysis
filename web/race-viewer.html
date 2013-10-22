@@ -281,6 +281,10 @@ var getBoatAtTime = function(d) {
     return d.tracks[point];
 }
 
+function round_number(num, dec) {
+        return Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
+}
+
 var getApparentWind = function(d) { 
     var d = getBoatAtTime(d); 
     var x = (d.trueWindSpd * Math.cos(toRadians(d.trueWindDir)-Math.PI/2)) +
@@ -288,7 +292,10 @@ var getApparentWind = function(d) {
     var y = (d.trueWindSpd * Math.sin(toRadians(d.trueWindDir)-Math.PI/2)) + 
                     	   (d.speedOverGround * Math.sin(toRadians(d.courseOverGround)-Math.PI/2)); 
 
-    return {x:x,y:y};
+    var spd = Math.sqrt(x*x+y*y);
+    var dir = Math.atan2(y,x)*180/Math.PI;
+
+    return {x:x,y:y,spd:round_number(spd,2),dir:round_number(dir,2)};
 };
 
 var updateBoats = function () {
@@ -374,8 +381,8 @@ var updateBoats = function () {
         newTRs.append('td').text(function(d) { return d.id; });
         newTRs.append('td').text(function(d) { var d = getBoatAtTime(d); return d.speedOverGround; });
         newTRs.append('td').text(function(d) { var d = getBoatAtTime(d); return d.heading; });
-        newTRs.append('td').text(function(d) { return getApparentWind(d).x; });
-        newTRs.append('td').text(function(d) { return getApparentWind(d).y; });
+        newTRs.append('td').text(function(d) { return getApparentWind(d).spd; });
+        newTRs.append('td').text(function(d) { return getApparentWind(d).dir; });
 
         // Update existing specific boat icon details
         updateBoatPos(ts.slider().val());
@@ -432,7 +439,7 @@ var updateBoatPos = function(pos) {
     trs.selectAll('td').data(function(d) {
            var id = d.id;
            var b = getBoatAtTime(d); 
-           return [id, b.speedOverGround, b.heading, getApparentWind(d).x, getApparentWind(d).y]; })
+           return [id, b.speedOverGround, b.heading, getApparentWind(d).spd, getApparentWind(d).dir]; })
         .text(function(d) { return d; });
 
 };

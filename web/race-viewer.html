@@ -13,6 +13,8 @@
     <style>
 #map { height: 400px; }
 
+body { padding-top: 10px; }
+
 .mark {
     fill: yellow;
     stroke: none;
@@ -300,7 +302,7 @@ var addStatPlot = function() {
             h = height - (mb + mt);
 
         var x = d3.scale.linear().range([0, w]).domain([0,b.tracks.length]);
-        var y = d3.scale.linear().range([h, 0]).domain([0,360]);
+        var y = d3.scale.linear().range([h, 0]).domain([0,50]);
         var yAxis = d3.svg.axis().scale(y).ticks(4).orient("left");
         var xAxis = d3.svg.axis().scale(x).ticks(10).orient("bottom");
 
@@ -320,7 +322,8 @@ var addStatPlot = function() {
               .call(yAxis);
 
         plot.append("svg:path").attr('class','stat-line')
-            .attr('d',statline(b.tracks.map(function(d) { return d['heading']; })));
+            .attr('d',statline(b.tracks.map(function(d) { return d['speedOverGround']; })));
+
 };
 
 var updateBoatLoadingProgress = function(progress) {

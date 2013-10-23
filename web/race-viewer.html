@@ -341,15 +341,19 @@ var getBoatPosIdx = function(d) {
     // the end... What if the current time is before we have any data? Should
     // fade out or hide the marker maybe? Do the same thing on boat addition.
 
-    var point = bisect(d.tracks,curTime); 
-    point = point < d.tracks.length ? point : d.tracks.length-1
+    var point = getBoatPoint(d);
     return project(d.tracks[point]); 
 } 
 
 var getBoatAtTime = function(d) { 
+    var point = getBoatPoint(d);
+    return d.tracks[point];
+}
+
+var getBoatPoint = function(d) { 
     var point = bisect(d.tracks,curTime);
     point = point < d.tracks.length ? point : d.tracks.length-1
-    return d.tracks[point];
+    return point;
 }
 
 function round_number(num, dec) {

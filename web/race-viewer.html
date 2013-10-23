@@ -108,6 +108,30 @@
     width: 700px;
 }
 
+.axis, .grid {
+  shape-rendering: crispEdges;
+}
+
+.x.axis line,
+.x.axis path {
+  fill: none;
+  stroke: #000;
+}
+
+.y.axis text {
+    text-anchor: end;
+}
+
+.y.axis line, 
+.y.axis path {
+  fill: none;
+  stroke: #000;
+}
+
+.stat-line {
+    fill: none;
+    stroke: green;
+}
 
     </style>
   </head>
@@ -122,6 +146,8 @@
             <tbody>
             </tbody>
         <table>
+        <div id="timeseries">
+        </div>
       </div>
       <script>
 
@@ -255,11 +281,47 @@ function toRadians (angle) {
 
 var updateBoatLoadingProgress = function(progress) {
     // FIXME Actually show some sort of progress bar
-    console.log(progress);
     if (progress == boats.length) {
         updateBoats();
+
+        var b = boats[0];
+        var width = 1135;
+            height = 400;
+        var margins = [50, 50, 50, 50], mb = margins[0], ml = margins[1], mt = margins[2], mr = margins[3];
+
+        var svg = d3.select('#timeseries').append('svg').style('height',height).style('width',width);
+        var plot = svg.append('g').attr('id','plot').attr('transform','translate('+ml+','+mt+')');
+
+        var w = width - (ml + mr),
+            h = height - (mb + mt);
+
+        var x = d3.scale.linear().range([0, w]).domain([0,b.tracks.length]);
+        var y = d3.scale.linear().range([h, 0]).domain([0,360]);
+        var yAxis = d3.svg.axis().scale(y).ticks(4).orient("left");
+        var xAxis = d3.svg.axis().scale(x).ticks(10).orient("bottom");
+
+        var statline = d3.svg.line()
+            .x(function(d,i) { return x(i) })
+            .y(function(d) { return y(d) });
+
+        // Add x-axis
+        plot.append("g")
+              .attr("class", "x axis")
+              .attr('transform','translate(0,'+h+')')
+              .call(xAxis);
+
+        // Add y-axis
+        plot.append("g")
+              .attr("class", "y axis")
+              .call(yAxis);
+
+        plot.append("svg:path").attr('class','stat-line')
+            .attr('d',statline(b.tracks.map(function(d) { return d.heading; })));
+
+
     }
 };
+
 // Bisector accessor function to quickly find the index of the track array associated
 // with the currently selected time
 var bisect = d3.bisector(function(d) { return d.time; }).right 

@@ -10,6 +10,7 @@
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script language="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="libs/slider/js/bootstrap-slider.js"></script>
+    <script src="libs/fisheye.js"></script>
     <style>
 #map { height: 400px; }
 
@@ -291,7 +292,8 @@ function toRadians (angle) {
       return angle * (Math.PI / 180);
 }
 
-var x = d3.scale.linear();
+//var x = d3.scale.linear();
+var x = d3.fisheye.scale(d3.scale.linear).distortion(0);
 var y = d3.scale.linear();
 
 var addStatPlot = function() {
@@ -333,6 +335,29 @@ var addStatPlot = function() {
 
         plot.append('svg:circle').attr('id','stat-marker').attr('class','stat-marker').attr('r',5)
             .attr('cx',x(0)).attr('cy',function() { var tmp = b.tracks[0]['speedOverGround']; return y(tmp)});
+
+        svg.on("mousemove", function() {
+              var mouse = d3.mouse(this);
+              x.distortion(5).focus(mouse[0]);
+              svg.select('.stat-line')
+                    .attr('d',statline(b.tracks.map(function(d) { return d['speedOverGround']; })));
+              var idx = getBoatPoint(boats[0]);
+              svg.select('#stat-marker')
+                    .attr('cx',x(idx)).attr('cy',function() { var tmp = boats[0].tracks[idx]['speedOverGround']; return y(tmp)});
+              svg.select(".x.axis").call(xAxis);
+        });
+
+        svg.on("mouseout", function() {
+              var mouse = d3.mouse(this);
+              x.distortion(0).focus(mouse[0]);
+              svg.select('.stat-line')
+                    .attr('d',statline(b.tracks.map(function(d) { return d['speedOverGround']; })));
+              var idx = getBoatPoint(boats[0]);
+              svg.select('#stat-marker')
+                    .attr('cx',x(idx)).attr('cy',function() { var tmp = boats[0].tracks[idx]['speedOverGround']; return y(tmp)});
+              svg.select(".x.axis").call(xAxis);
+        });
+
 };
 
 var updateBoatLoadingProgress = function(progress) {

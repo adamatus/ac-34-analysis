@@ -135,6 +135,11 @@ body { padding-top: 10px; }
     stroke: green;
 }
 
+.stat-marker {
+    fill: green;
+    stroke: none;
+}
+
     </style>
   </head>
   <body>
@@ -286,6 +291,9 @@ function toRadians (angle) {
       return angle * (Math.PI / 180);
 }
 
+var x = d3.scale.linear();
+var y = d3.scale.linear();
+
 var addStatPlot = function() {
         
         var b = boats[0];
@@ -300,9 +308,8 @@ var addStatPlot = function() {
 
         var w = width - (ml + mr),
             h = height - (mb + mt);
-
-        var x = d3.scale.linear().range([0, w]).domain([0,b.tracks.length]);
-        var y = d3.scale.linear().range([h, 0]).domain([0,50]);
+        x.range([0, w]).domain([0,b.tracks.length]);
+        y.range([h, 0]).domain([0,50]);
         var yAxis = d3.svg.axis().scale(y).ticks(4).orient("left");
         var xAxis = d3.svg.axis().scale(x).ticks(10).orient("bottom");
 
@@ -324,6 +331,8 @@ var addStatPlot = function() {
         plot.append("svg:path").attr('class','stat-line')
             .attr('d',statline(b.tracks.map(function(d) { return d['speedOverGround']; })));
 
+        plot.append('svg:circle').attr('id','stat-marker').attr('class','stat-marker').attr('r',5)
+            .attr('cx',x(0)).attr('cy',function() { var tmp = b.tracks[0]['speedOverGround']; return y(tmp)});
 };
 
 var updateBoatLoadingProgress = function(progress) {
@@ -525,6 +534,12 @@ var updateBoatPos = function(pos) {
         .text(function(d) { return getApparentWind(boats[d]).spd; });
     d3.select('#summary-table-awa').selectAll('td').data([0,1])
         .text(function(d) { return getApparentWind(boats[d]).dir; });
+
+    // Update boat stat plots
+    var idx = getBoatPoint(boats[0]);
+
+    d3.select('#stat-marker')
+            .attr('cx',x(idx)).attr('cy',function() { var tmp = boats[0].tracks[idx]['speedOverGround']; return y(tmp)});
 };
 
 map.on("viewreset",updateView)

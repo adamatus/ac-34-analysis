@@ -145,12 +145,12 @@
             </div>
             <div class="col-md-3">
                 <table id="summary-table" class="table table-striped table-hover">
-                    <thead>
-                        <tr><th>Boat</th><th>Boat Speed</th><th>Boat Heading</th><th>Apparent Wind Speed</th><th>Apparent Wind Angle</th></tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                <table>
+                    <tr id="summary-table-boat"><th>Boat</th></tr>
+                    <tr id="summary-table-speed"><th>Speed</th></tr>
+                    <tr id="summary-table-heading"><th>Heading</th></tr>
+                    <tr id="summary-table-aws"><th>AWS</th></tr>
+                    <tr id="summary-table-awa"><th>AWA</th></tr>
+                </table>
             </div>
         </div>
       </div>
@@ -288,7 +288,7 @@ var addStatPlot = function() {
         
         var b = boats[0];
         var width = $("#timeseries").width(); 
-            height = 400;
+            height = 300;
         var margins = [40, 40, 10, 10], mb = margins[0], ml = margins[1], mt = margins[2], mr = margins[3];
 
         var svg = d3.select('#timeseries').append('svg')
@@ -363,6 +363,7 @@ var getApparentWind = function(d) {
     var y = (d.trueWindSpd * Math.sin(toRadians(d.trueWindDir)-Math.PI/2)) + 
                     	   (d.speedOverGround * Math.sin(toRadians(d.courseOverGround)-Math.PI/2)); 
 
+    // FIXME We really need to return the apparent angle to the boat, not to North
     var spd = Math.sqrt(x*x+y*y);
     var dir = Math.atan2(y,x)*180/Math.PI;
 
@@ -443,17 +444,19 @@ var updateBoats = function () {
                     return d.speedOverGround * Math.sin(toRadians(d.courseOverGround)-Math.PI/2); });
 
         // Update display table 
-        var trs = d3.select('#summary-table tbody').selectAll('tr')
-                    .data(boats,function(d) { return d.id });
-
-        // Add new rows to table
-        var newTRs = trs.enter().append('tr')
-            .attr('class',function(d) { return 'summary-table-row summary-table-row-'.concat(d.className); });
-        newTRs.append('td').text(function(d) { return d.id; });
-        newTRs.append('td').text(function(d) { var d = getBoatAtTime(d); return d.speedOverGround; });
-        newTRs.append('td').text(function(d) { var d = getBoatAtTime(d); return d.heading; });
-        newTRs.append('td').text(function(d) { return getApparentWind(d).spd; });
-        newTRs.append('td').text(function(d) { return getApparentWind(d).dir; });
+        // FIXME This is ugly... There must be some way of nexted selections to do this
+        d3.select('#summary-table-boat').selectAll('td').data([0,1])
+            .enter().append('td').text(function(d) { return boats[d].id; });
+        d3.select('#summary-table-speed').selectAll('td').data([0,1])
+            .enter().append('td').text(function(d) { var b = getBoatAtTime(boats[d]);
+                    return b.speedOverGround; });
+        d3.select('#summary-table-heading').selectAll('td').data([0,1])
+            .enter().append('td').text(function(d) { var b = getBoatAtTime(boats[d]);
+                    return b.heading; });
+        d3.select('#summary-table-aws').selectAll('td').data([0,1])
+            .enter().append('td').text(function(d) { return getApparentWind(boats[d]).spd; });
+        d3.select('#summary-table-awa').selectAll('td').data([0,1])
+            .enter().append('td').text(function(d) { return getApparentWind(boats[d]).dir; });
 
         // Update existing specific boat icon details
         updateBoatPos(ts.slider().val());
@@ -504,15 +507,17 @@ var updateBoatPos = function(pos) {
                     return d.speedOverGround * Math.sin(toRadians(d.courseOverGround)-Math.PI/2); });
 
     // Update boat summary table
-    var trs = d3.select('#summary-table tbody').selectAll('tr')
-            .data(boats,function(d) { return d.id });
-
-    trs.selectAll('td').data(function(d) {
-           var id = d.id;
-           var b = getBoatAtTime(d); 
-           return [id, b.speedOverGround, b.heading, getApparentWind(d).spd, getApparentWind(d).dir]; })
-        .text(function(d) { return d; });
-
+    // FIXME Same ugly warning as above.  Nested selections please?
+    d3.select('#summary-table-speed').selectAll('td').data([0,1])
+        .text(function(d) { var b = getBoatAtTime(boats[d]);
+                return b.speedOverGround; });
+    d3.select('#summary-table-heading').selectAll('td').data([0,1])
+        .text(function(d) { var b = getBoatAtTime(boats[d]);
+                return b.heading; });
+    d3.select('#summary-table-aws').selectAll('td').data([0,1])
+        .text(function(d) { return getApparentWind(boats[d]).spd; });
+    d3.select('#summary-table-awa').selectAll('td').data([0,1])
+        .text(function(d) { return getApparentWind(boats[d]).dir; });
 };
 
 map.on("viewreset",updateView)

@@ -137,16 +137,21 @@
   </head>
   <body>
       <div class="container">
-        <div id="map"></div>
-        <input type="text" class="slider" value="0" id="time-slider" >
-        <table id="summary-table" class="table table-striped table-hover">
-            <thead>
-                <tr><th>Boat</th><th>Boat Speed</th><th>Boat Heading</th><th>Apparent Wind Speed</th><th>Apparent Wind Angle</th></tr>
-            </thead>
-            <tbody>
-            </tbody>
-        <table>
-        <div id="timeseries">
+        <div class="row">
+            <div class="col-md-9">
+                <div id="map"></div>
+                <input type="text" class="slider" value="0" id="time-slider" >
+                <div id="timeseries"></div>
+            </div>
+            <div class="col-md-3">
+                <table id="summary-table" class="table table-striped table-hover">
+                    <thead>
+                        <tr><th>Boat</th><th>Boat Speed</th><th>Boat Heading</th><th>Apparent Wind Speed</th><th>Apparent Wind Angle</th></tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                <table>
+            </div>
         </div>
       </div>
       <script>
@@ -280,12 +285,15 @@ function toRadians (angle) {
 }
 
 var addStatPlot = function() {
+        
         var b = boats[0];
-        var width = 1135;
+        var width = $("#timeseries").width(); 
             height = 400;
-        var margins = [50, 50, 50, 50], mb = margins[0], ml = margins[1], mt = margins[2], mr = margins[3];
+        var margins = [40, 40, 10, 10], mb = margins[0], ml = margins[1], mt = margins[2], mr = margins[3];
 
-        var svg = d3.select('#timeseries').append('svg').style('height',height).style('width',width);
+        var svg = d3.select('#timeseries').append('svg')
+                .style('height',height).style('width',width);
+
         var plot = svg.append('g').attr('id','plot').attr('transform','translate('+ml+','+mt+')');
 
         var w = width - (ml + mr),

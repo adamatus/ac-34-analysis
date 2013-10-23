@@ -279,11 +279,7 @@ function toRadians (angle) {
       return angle * (Math.PI / 180);
 }
 
-var updateBoatLoadingProgress = function(progress) {
-    // FIXME Actually show some sort of progress bar
-    if (progress == boats.length) {
-        updateBoats();
-
+var addStatPlot = function() {
         var b = boats[0];
         var width = 1135;
             height = 400;
@@ -316,9 +312,14 @@ var updateBoatLoadingProgress = function(progress) {
               .call(yAxis);
 
         plot.append("svg:path").attr('class','stat-line')
-            .attr('d',statline(b.tracks.map(function(d) { return d.heading; })));
+            .attr('d',statline(b.tracks.map(function(d) { return d['heading']; })));
+};
 
-
+var updateBoatLoadingProgress = function(progress) {
+    // FIXME Actually show some sort of progress bar
+    if (progress == boats.length) {
+        updateBoats();
+        addStatPlot();
     }
 };
 

@@ -404,9 +404,12 @@ var getApparentWind = function(d) {
     var y = (d.trueWindSpd * Math.sin(toRadians(d.trueWindDir)-Math.PI/2)) + 
                     	   (d.speedOverGround * Math.sin(toRadians(d.courseOverGround)-Math.PI/2)); 
 
-    // FIXME We really need to return the apparent angle to the boat, not to North
     var spd = Math.sqrt(x*x+y*y);
-    var dir = Math.atan2(y,x)*180/Math.PI;
+
+    var apdir = Math.atan2(y,x)*180/Math.PI+90; // Rotate so 0 degree is North
+    var boatdir = d.courseOverGround;
+
+    var dir = Math.abs(Math.min(360-Math.abs(apdir-boatdir),Math.abs(apdir-boatdir)));
 
     return {x:x,y:y,spd:round_number(spd,2),dir:round_number(dir,2)};
 };

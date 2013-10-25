@@ -156,6 +156,8 @@ body { padding-top: 10px; }
                     <tr id="summary-table-boat"><th>Boat</th></tr>
                     <tr id="summary-table-speed"><th>Speed</th></tr>
                     <tr id="summary-table-heading"><th>Heading</th></tr>
+                    <tr id="summary-table-tws"><th>TWS</th></tr>
+                    <tr id="summary-table-twa"><th>TWA</th></tr>
                     <tr id="summary-table-aws"><th>AWS</th></tr>
                     <tr id="summary-table-awa"><th>AWA</th></tr>
                 </table>
@@ -488,7 +490,7 @@ var updateBoats = function () {
                     return d.speedOverGround * Math.sin(toRadians(d.courseOverGround)-Math.PI/2); });
 
         // Update display table 
-        // FIXME This is ugly... There must be some way of nexted selections to do this
+        // TODO This is fugly... There must be some way of nexted selections to do this
         d3.select('#summary-table-boat').selectAll('td').data([0,1])
             .enter().append('td').text(function(d) { return boats[d].id; });
         d3.select('#summary-table-speed').selectAll('td').data([0,1])
@@ -497,6 +499,12 @@ var updateBoats = function () {
         d3.select('#summary-table-heading').selectAll('td').data([0,1])
             .enter().append('td').text(function(d) { var b = getBoatAtTime(boats[d]);
                     return b.heading; });
+        d3.select('#summary-table-tws').selectAll('td').data([0,1])
+            .enter().append('td').text(function(d) { var b = getBoatAtTime(boats[d]);
+                    return b.trueWindSpd; });
+        d3.select('#summary-table-twa').selectAll('td').data([0,1])
+            .enter().append('td').text(function(d) { var b = getBoatAtTime(boats[d]);
+                    return Math.round(Math.min(360-Math.abs(b.heading-b.trueWindDir),Math.abs(b.heading-b.trueWindDir)),2); });
         d3.select('#summary-table-aws').selectAll('td').data([0,1])
             .enter().append('td').text(function(d) { return getApparentWind(boats[d]).spd; });
         d3.select('#summary-table-awa').selectAll('td').data([0,1])
@@ -551,13 +559,19 @@ var updateBoatPos = function(pos) {
                     return d.speedOverGround * Math.sin(toRadians(d.courseOverGround)-Math.PI/2); });
 
     // Update boat summary table
-    // FIXME Same ugly warning as above.  Nested selections please?
+    // TODO: Same ugly warning as above.  Nested selections please?
     d3.select('#summary-table-speed').selectAll('td').data([0,1])
         .text(function(d) { var b = getBoatAtTime(boats[d]);
                 return b.speedOverGround; });
     d3.select('#summary-table-heading').selectAll('td').data([0,1])
         .text(function(d) { var b = getBoatAtTime(boats[d]);
                 return b.heading; });
+    d3.select('#summary-table-tws').selectAll('td').data([0,1])
+        .text(function(d) { var b = getBoatAtTime(boats[d]);
+                return b.trueWindSpd; });
+    d3.select('#summary-table-twa').selectAll('td').data([0,1])
+        .text(function(d) { var b = getBoatAtTime(boats[d]);
+                return Math.round(Math.min(360-Math.abs(b.heading-b.trueWindDir),Math.abs(b.heading-b.trueWindDir)),2); });
     d3.select('#summary-table-aws').selectAll('td').data([0,1])
         .text(function(d) { return getApparentWind(boats[d]).spd; });
     d3.select('#summary-table-awa').selectAll('td').data([0,1])

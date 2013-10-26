@@ -25,7 +25,7 @@ L.tileLayer('http://{s}.tile.cloudmade.com/78f159c3ec8c4290b7854cf0471003ec/997/
 }).addTo(map);
 
 // Add initial SVG layer that we will build on
-map._initPathRoot() 
+map._initPathRoot();
 
 // Add svg group for all custom drawing
 var svg = d3.select("#map").select("svg"),
@@ -38,8 +38,8 @@ function project(x) {
 
 // Basic line drawing function
 var track = d3.svg.line()
-    .x(function(d) { return d.x })
-    .y(function(d) { return d.y });
+    .x(function(d) { return d.x; })
+    .y(function(d) { return d.y; });
 
 // Hand entered positions for all race marks
 // Computed by taking mean pos of the specific mark boats GPS track
@@ -90,7 +90,8 @@ var loadedBoats = 0;
 
 // Loop through the desired boats and read the CSV file then draw track
 // Each loaded CSV gets wrapped as a closure so arguments hold up
-for (var i = 0; i < boats.length; i++) (function(i) {
+// FIXME - There must be a proper way to do this scoped issue...
+var loadboat = function loadboat(i) {
     var boat_id = boats[i].id;
     var boat_class = boats[i].className;
     d3.csv('../data/130925/csv/20130925130025-NAV-'+boat_id+'.csv')
@@ -104,9 +105,7 @@ for (var i = 0; i < boats.length; i++) (function(i) {
                     trueWindSpd:d.CourseWindSpeed,
                     heel:d.Heel,
                     pitch:d.Pitch,
-                    //date:formatDate.parse(d.Date),
-                    time:formatTime.parse(d.LocalTime),
-                    //both:format.parse(d.Date+' '+d.LocalTime+' '+d.Zone+'00')
+                    time:formatTime.parse(d.LocalTime)
                     }; })
         .get(function(error,rows) { 
           
@@ -116,7 +115,11 @@ for (var i = 0; i < boats.length; i++) (function(i) {
             updateBoatLoadingProgress(++loadedBoats);
 
          });
-})(i);
+};
+
+for (var i = 0; i < boats.length; i++) {
+    loadboat(i);
+}
 
 function toDegrees (angle) {
       return angle * (180 / Math.PI);
@@ -150,8 +153,8 @@ var addStatPlot = function() {
         var xAxis = d3.svg.axis().scale(x).ticks(10).orient("bottom");
 
         var statline = d3.svg.line()
-            .x(function(d,i) { return x(i) })
-            .y(function(d) { return y(d) });
+            .x(function(d,i) { return x(i); })
+            .y(function(d) { return y(d); });
 
         // Add x-axis
         plot.append("g")
@@ -168,7 +171,7 @@ var addStatPlot = function() {
             .attr('d',statline(b.tracks.map(function(d) { return d['speedOverGround']; })));
 
         plot.append('svg:circle').attr('id','stat-marker').attr('class','stat-marker').attr('r',5)
-            .attr('cx',x(0)).attr('cy',function() { var tmp = b.tracks[0]['speedOverGround']; return y(tmp)});
+            .attr('cx',x(0)).attr('cy',function() { var tmp = b.tracks[0]['speedOverGround']; return y(tmp); });
 
         svg.on("mousemove", function() {
               var mouse = d3.mouse(this);
@@ -177,7 +180,7 @@ var addStatPlot = function() {
                     .attr('d',statline(b.tracks.map(function(d) { return d['speedOverGround']; })));
               var idx = getBoatPoint(boats[0]);
               svg.select('#stat-marker')
-                    .attr('cx',x(idx)).attr('cy',function() { var tmp = boats[0].tracks[idx]['speedOverGround']; return y(tmp)});
+                    .attr('cx',x(idx)).attr('cy',function() { var tmp = boats[0].tracks[idx]['speedOverGround']; return y(tmp); });
               svg.select(".x.axis").call(xAxis);
         });
 
@@ -188,7 +191,7 @@ var addStatPlot = function() {
                     .attr('d',statline(b.tracks.map(function(d) { return d['speedOverGround']; })));
               var idx = getBoatPoint(boats[0]);
               svg.select('#stat-marker')
-                    .attr('cx',x(idx)).attr('cy',function() { var tmp = boats[0].tracks[idx]['speedOverGround']; return y(tmp)});
+                    .attr('cx',x(idx)).attr('cy',function() { var tmp = boats[0].tracks[idx]['speedOverGround']; return y(tmp); });
               svg.select(".x.axis").call(xAxis);
         });
 
@@ -204,7 +207,7 @@ var updateBoatLoadingProgress = function(progress) {
 
 // Bisector accessor function to quickly find the index of the track array associated
 // with the currently selected time
-var bisect = d3.bisector(function(d) { return d.time; }).right 
+var bisect = d3.bisector(function(d) { return d.time; }).right;
 
 var getBoatPosIdx = function(d) {
     // FIXME We need to do something smarter if the current timepoint is not in
@@ -214,29 +217,29 @@ var getBoatPosIdx = function(d) {
 
     var point = getBoatPoint(d);
     return project(d.tracks[point]); 
-} 
+}; 
 
 var getBoatAtTime = function(d) { 
     var point = getBoatPoint(d);
     return d.tracks[point];
-}
+};
 
 var getBoatPoint = function(d) { 
     var point = bisect(d.tracks,curTime);
-    point = point < d.tracks.length ? point : d.tracks.length-1
+    point = point < d.tracks.length ? point : d.tracks.length-1;
     return point;
-}
+};
 
-function round_number(num, dec) {
+var round_number = function round_number(num, dec) {
         return Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
-}
+};
 
 var getApparentWind = function(d) { 
-    var d = getBoatAtTime(d); 
+    d = getBoatAtTime(d); 
     var x = (d.trueWindSpd * Math.cos(toRadians(d.trueWindDir)-Math.PI/2)) +
                            (d.speedOverGround * Math.cos(toRadians(d.courseOverGround)-Math.PI/2));
     var y = (d.trueWindSpd * Math.sin(toRadians(d.trueWindDir)-Math.PI/2)) + 
-                    	   (d.speedOverGround * Math.sin(toRadians(d.courseOverGround)-Math.PI/2)); 
+                           (d.speedOverGround * Math.sin(toRadians(d.courseOverGround)-Math.PI/2)); 
 
     var spd = Math.sqrt(x*x+y*y);
 
@@ -251,7 +254,7 @@ var getApparentWind = function(d) {
 var updateBoats = function () {
         // Create a group for the specific boat
         var boatGroup = boatLayer.selectAll('.boat-group')
-                .data(boats,function(d) { return d.id });
+                .data(boats,function(d) { return d.id; });
 
         var newBoatGroup = boatGroup.enter().append('svg:g')
                 .attr('id',function(d) { return 'boat-group-'.concat(d.id); })
@@ -259,11 +262,11 @@ var updateBoats = function () {
             
         // Update the existing boat tracks
         boatGroup.selectAll('.track')
-                .attr("d",function(d) { return track(d.tracks.map(function(d) { return project(d); })) });
+                .attr("d",function(d) { return track(d.tracks.map(function(d) { return project(d); })); });
 
         // Add the new tracks to the boat group
         newBoatGroup.append('svg:path')
-                .attr("d",function(d) { return track(d.tracks.map(function(d) { return project(d); })) })
+                .attr("d",function(d) { return track(d.tracks.map(function(d) { return project(d); })); })
                 .attr('id',function(d) { return 'track-'.concat(d.id); })
                 .attr('class',function(d) { return 'track track-'.concat(d.className); });
 
@@ -285,7 +288,7 @@ var updateBoats = function () {
         // Add new boat stats group
         var newBoatStats = newBoatMarkerGroup.append('svg:g')
                 .attr('id',function(d) { return 'boat-stats-'.concat(d.id); })
-                .attr('class',function(d) { return 'boat-stats boat-stats-'.concat(d.className); })
+                .attr('class',function(d) { return 'boat-stats boat-stats-'.concat(d.className); });
 
         // Add new boat true wind arrow
         newBoatStats.append('svg:line')
@@ -293,10 +296,10 @@ var updateBoats = function () {
             .attr('class',function(d) { return 'boat-stats-truewind boat-stats-truewind-'.concat(d.className); })
             .attr('x1',0).attr('y1',0)
             .attr('x2',function(d) { 
-                    var d = getBoatAtTime(d); 
+                    d = getBoatAtTime(d); 
                     return d.trueWindSpd * Math.cos(toRadians(d.trueWindDir)-Math.PI/2); })
             .attr('y2',function(d) { 
-                    var d = getBoatAtTime(d); 
+                    d = getBoatAtTime(d); 
                     return d.trueWindSpd * Math.sin(toRadians(d.trueWindDir)-Math.PI/2); });
 
         // Add new boat apparent wind arrow
@@ -315,10 +318,10 @@ var updateBoats = function () {
             .attr('class',function(d) { return 'boat-stats-velocity boat-stats-velocity-'.concat(d.className); })
             .attr('x1',0).attr('y1',0)
             .attr('x2',function(d) { 
-                    var d = getBoatAtTime(d); 
+                    d = getBoatAtTime(d); 
                     return d.speedOverGround * Math.cos(toRadians(d.courseOverGround)-Math.PI/2); })
             .attr('y2',function(d) { 
-                    var d = getBoatAtTime(d); 
+                    d = getBoatAtTime(d); 
                     return d.speedOverGround * Math.sin(toRadians(d.courseOverGround)-Math.PI/2); });
 
         // Update display table 
@@ -345,7 +348,7 @@ var updateBoats = function () {
         // Update existing specific boat icon details
         updateBoatPos(ts.slider().val());
 
-}
+};
 
 // Function that gets called on map redraw (usually zoom) to fix plotted
 // positions so they correspond to proper lat/lon
@@ -372,22 +375,22 @@ var updateBoatPos = function(pos) {
     // Update boat stats
     icons.selectAll('.boat-stats-truewind')
             .attr('x2',function(d) { 
-                    var d = getBoatAtTime(d); 
+                    d = getBoatAtTime(d); 
                     return d.trueWindSpd * Math.cos(toRadians(d.trueWindDir)-Math.PI/2); })
             .attr('y2',function(d) { 
-                    var d = getBoatAtTime(d); 
+                    d = getBoatAtTime(d); 
                     return d.trueWindSpd * Math.sin(toRadians(d.trueWindDir)-Math.PI/2); });
     icons.selectAll('.boat-stats-appwind')
             .attr('x2',function(d) { 
                 return getApparentWind(d).x; })
             .attr('y2',function(d) { 
-                return getApparentWind(d).y; })
+                return getApparentWind(d).y; });
     icons.selectAll('.boat-stats-velocity')
             .attr('x2',function(d) { 
-                    var d = getBoatAtTime(d); 
+                    d = getBoatAtTime(d); 
                     return d.speedOverGround * Math.cos(toRadians(d.courseOverGround)-Math.PI/2); })
             .attr('y2',function(d) { 
-                    var d = getBoatAtTime(d); 
+                    d = getBoatAtTime(d); 
                     return d.speedOverGround * Math.sin(toRadians(d.courseOverGround)-Math.PI/2); });
 
     // Update boat summary table
@@ -413,8 +416,8 @@ var updateBoatPos = function(pos) {
     var idx = getBoatPoint(boats[0]);
 
     d3.select('#stat-marker')
-            .attr('cx',x(idx)).attr('cy',function() { var tmp = boats[0].tracks[idx]['speedOverGround']; return y(tmp)});
+            .attr('cx',x(idx)).attr('cy',function() { var tmp = boats[0].tracks[idx]['speedOverGround']; return y(tmp); });
 };
 
-map.on("viewreset",updateView)
+map.on("viewreset",updateView);
 

@@ -1,0 +1,128 @@
+#map { height: 400px; }
+
+body { padding-top: 10px; }
+
+.mark {
+    fill: yellow;
+    stroke: none;
+}
+
+.boat-marker {
+    opacity: 1;
+    stroke: none;
+    fill: black;
+}
+
+.boat-marker-usa {
+    fill: black;
+}
+
+.boat-marker-nzl {
+    fill: red;
+}
+
+.boat-marker-heli {
+    fill: blue;
+}
+
+.boat-marker-ump {
+    fill: yellow;
+}
+
+.boat-marker-cam {
+    fill: green;
+}
+
+.boat-marker-rc {
+    fill: white;
+}
+
+.boat-marker-marshall {
+    fill: gray;
+}
+
+.track {
+    opacity: 1;
+    stroke: black;
+    stroke-width: 1px;
+    fill: none;
+}
+
+.boat-stats-velocity {
+    stroke-width: 2px;
+    stroke: black;
+}
+
+.boat-stats-truewind {
+    stroke-width: 2px;
+    stroke: blue;
+}
+
+.boat-stats-appwind {
+    stroke-width: 2px;
+    stroke: cyan;
+}
+
+.track-usa {
+    stroke: black;
+}
+
+.track-nzl,
+.boat-stats-velocity-nzl {
+    stroke: red;
+}
+
+.track-heli {
+    stroke: blue;
+}
+
+.track-ump {
+    stroke: yellow;
+}
+
+.track-cam {
+    stroke: green;
+}
+
+.track-rc {
+    stroke: white;
+}
+
+.track-marshall {
+    stroke: gray;
+}
+
+.slider {
+    margin: 10px;
+    width: 700px;
+}
+
+.axis, .grid {
+  shape-rendering: crispEdges;
+}
+
+.x.axis line,
+.x.axis path {
+  fill: none;
+  stroke: #000;
+}
+
+.y.axis text {
+    text-anchor: end;
+}
+
+.y.axis line, 
+.y.axis path {
+  fill: none;
+  stroke: #000;
+}
+
+.stat-line {
+    fill: none;
+    stroke: green;
+}
+
+.stat-marker {
+    fill: green;
+    stroke: none;
+}

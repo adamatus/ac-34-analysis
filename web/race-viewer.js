@@ -2,6 +2,19 @@ var formatDate = d3.time.format('%d:%m:%Y');
 var formatTime = d3.time.format('%H:%M:%S.%L');
 var format = d3.time.format('%d:%m:%Y %H:%M:%S.%L %Z');
 
+// Hand entered positions for all race marks
+// Computed by taking mean pos of the specific mark boats GPS track
+var marks = [{lat:37.820190,lon:-122.456763,label:'Entry'},
+             {lat:37.81705,lon:-122.455,label:'Start Gate (Stb)'},
+             {lat:37.81746,lon:-122.4519,label:'Start Gate (Port)'},
+             {lat:37.81284,lon:-122.4505,label:'Mark 1 (Port)'},
+             {lat:37.82368,lon:-122.4008,label:'Leeward Gate (Port)'},
+             {lat:37.82227,lon:-122.4004,label:'Leeward Gate (Stb)'},
+             {lat:37.81286,lon:-122.4624,label:'Windward Gate (Stb)'},
+             {lat:37.81437,lon:-122.4631,label:'Windward Gate (Port)'},
+             {lat:37.81023,lon:-122.4012,label:'Finish Gate (Stb)'},
+             {lat:37.81039,lon:-122.3993,label:'Finish Gate (Port)'}];
+
 var timeMapper = d3.time.scale().domain([formatTime.parse("13:00:00.000"),formatTime.parse("13:40:04.000")]).range([0,1000]);
 
 // Add the time slider
@@ -32,27 +45,14 @@ var svg = d3.select("#map").select("svg"),
     g = svg.append("g").attr('id','#d3-layer');
 
 // Function to map Lat/Lon to current svg X/Y
-function project(x) {
+var project = function project(x) {
   return map.latLngToLayerPoint(new L.LatLng(x.lat, x.lon));
-}
+};
 
 // Basic line drawing function
 var track = d3.svg.line()
     .x(function(d) { return d.x; })
     .y(function(d) { return d.y; });
-
-// Hand entered positions for all race marks
-// Computed by taking mean pos of the specific mark boats GPS track
-var marks = [{lat:37.820190,lon:-122.456763,label:'Entry'},
-             {lat:37.81705,lon:-122.455,label:'Start Gate (Stb)'},
-             {lat:37.81746,lon:-122.4519,label:'Start Gate (Port)'},
-             {lat:37.81284,lon:-122.4505,label:'Mark 1 (Port)'},
-             {lat:37.82368,lon:-122.4008,label:'Leeward Gate (Port)'},
-             {lat:37.82227,lon:-122.4004,label:'Leeward Gate (Stb)'},
-             {lat:37.81286,lon:-122.4624,label:'Windward Gate (Stb)'},
-             {lat:37.81437,lon:-122.4631,label:'Windward Gate (Port)'},
-             {lat:37.81023,lon:-122.4012,label:'Finish Gate (Stb)'},
-             {lat:37.81039,lon:-122.3993,label:'Finish Gate (Port)'}];
 
 // Add marks to mark-group
 var markGroup = g.append('g').attr('id','mark-group');
@@ -85,12 +85,8 @@ var curTime = timeMapper.invert(0);
 // Add boat-group
 var boatLayer = g.append('g').attr('id','boat-group');
 
-
 var loadedBoats = 0;
 
-// Loop through the desired boats and read the CSV file then draw track
-// Each loaded CSV gets wrapped as a closure so arguments hold up
-// FIXME - There must be a proper way to do this scoped issue...
 var loadboat = function loadboat(i) {
     var boat_id = boats[i].id;
     var boat_class = boats[i].className;
@@ -117,17 +113,18 @@ var loadboat = function loadboat(i) {
          });
 };
 
+// Loop through the desired boats and read the CSV file then draw track
 for (var i = 0; i < boats.length; i++) {
     loadboat(i);
 }
 
-function toDegrees (angle) {
+var toDegrees = function toDegrees(angle) {
       return angle * (180 / Math.PI);
-}
+};
 
-function toRadians (angle) {
+var toRadians = function toRadians(angle) {
       return angle * (Math.PI / 180);
-}
+};
 
 //var x = d3.scale.linear();
 var x = d3.fisheye.scale(d3.scale.linear).distortion(0);

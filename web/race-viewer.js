@@ -110,14 +110,27 @@ var loadboat = function loadboat(i) {
   var boat_class = boats[i].className;
   d3.csv('../data/130925/csv/20130925130025-NAV-'+boat_id+'.csv')
     .row(function(d) { 
+      var app = computeApparentWind(d.COG,d.SOG,
+                                    d.CourseWindDirection,
+                                    d.CourseWindSpeed);
       return {
         lat: d.Lat, 
         lon: d.Lon, 
         heading: d.Hdg,
         courseOverGround: d.COG,
         speedOverGround: d.SOG,
+        bx: d.SOG * Math.cos(toRadians(d.COG)-Math.PI/2),
+        by: d.SOG * Math.sin(toRadians(d.COG)-Math.PI/2),
         trueWindDir: d.CourseWindDirection,
         trueWindSpd: d.CourseWindSpeed,
+        twx: d.CourseWindSpeed * 
+          Math.cos(toRadians(d.CourseWindDirection)-Math.PI/2),
+        twy: d.CourseWindSpeed * 
+          Math.sin(toRadians(d.CourseWindDirection)-Math.PI/2),
+        appWindDir: app.dir,
+        appWindSpd: app.spd,
+        awx: app.x,
+        awy: app.y,
         heel: d.Heel,
         pitch: d.Pitch,
         time: formatTime.parse(d.LocalTime)
@@ -130,7 +143,7 @@ var loadboat = function loadboat(i) {
       boats[i].tracks = rows;
       updateBoatLoadingProgress(++loadedBoats);
 
-      });
+    });
 };
 
 // Loop through the desired boats and read the CSV file then draw track
@@ -293,6 +306,26 @@ var getApparentWind = function(d) {
   };
 };
 
+var computeApparentWind = function(bdir,bspd,twdir,twspd) { 
+  var x = (twspd * Math.cos(toRadians(twdir)-Math.PI/2)) +
+          (bspd * Math.cos(toRadians(bdir)-Math.PI/2));
+  var y = (twspd * Math.sin(toRadians(twdir)-Math.PI/2)) + 
+          (bspd * Math.sin(toRadians(twdir)-Math.PI/2)); 
+
+  var spd = Math.sqrt(x*x+y*y);
+  var apdir = Math.atan2(y,x)*180/Math.PI+90; // Rotate so 0 degree is North
+
+  var dir = Math.abs(Math.min(360-Math.abs(apdir-bdir),
+                     Math.abs(apdir-bdir)));
+
+  return {
+    x: x,
+    y: y,
+    spd: round_number(spd,2),
+    dir: round_number(dir,2)
+  };
+};
+
 var updateBoats = function () {
   // Create a group for the specific boat
   var boatGroup = boatLayer.selectAll('.boat-group')
@@ -356,11 +389,11 @@ var updateBoats = function () {
     .attr('y1',0)
     .attr('x2',function(d) { 
       d = getBoatAtTime(d); 
-      return d.trueWindSpd * Math.cos(toRadians(d.trueWindDir)-Math.PI/2); 
+      return d.twx;
     })
     .attr('y2',function(d) { 
       d = getBoatAtTime(d); 
-      return d.trueWindSpd * Math.sin(toRadians(d.trueWindDir)-Math.PI/2); 
+      return d.twy;
     });
 
   // Add new boat apparent wind arrow
@@ -371,10 +404,12 @@ var updateBoats = function () {
     })
     .attr('x1',0).attr('y1',0)
     .attr('x2',function(d) { 
-      return getApparentWind(d).x; 
+      d = getBoatAtTime(d); 
+      return d.awx;
     })
     .attr('y2',function(d) { 
-        return getApparentWind(d).y; 
+      d = getBoatAtTime(d); 
+      return d.awy;
     });
 
   // Add new boat velocity arrow
@@ -387,13 +422,11 @@ var updateBoats = function () {
     .attr('y1',0)
     .attr('x2',function(d) { 
       d = getBoatAtTime(d); 
-      return d.speedOverGround * 
-             Math.cos(toRadians(d.courseOverGround)-Math.PI/2); 
+      return d.bx;
     })
     .attr('y2',function(d) { 
       d = getBoatAtTime(d); 
-      return d.speedOverGround * 
-             Math.sin(toRadians(d.courseOverGround)-Math.PI/2); 
+      return d.by;
     });
 
   // Update display table 
@@ -480,27 +513,31 @@ var updateBoatPos = function(pos) {
   icons.selectAll('.boat-stats-truewind')
     .attr('x2',function(d) { 
       d = getBoatAtTime(d); 
-      return d.trueWindSpd * Math.cos(toRadians(d.trueWindDir)-Math.PI/2); 
+      return d.twx; 
     })
     .attr('y2',function(d) { 
       d = getBoatAtTime(d); 
-      return d.trueWindSpd * Math.sin(toRadians(d.trueWindDir)-Math.PI/2); 
+      return d.twy;
     });
 
   icons.selectAll('.boat-stats-appwind')
-    .attr('x2',function(d) { return getApparentWind(d).x; })
-    .attr('y2',function(d) { return getApparentWind(d).y; });
+    .attr('x2',function(d) {
+      d = getBoatAtTime(d); 
+      return d.awx; 
+    })
+    .attr('y2',function(d) { 
+      d = getBoatAtTime(d); 
+      return d.awy; 
+    });
 
   icons.selectAll('.boat-stats-velocity')
     .attr('x2',function(d) { 
       d = getBoatAtTime(d); 
-      return d.speedOverGround * 
-             Math.cos(toRadians(d.courseOverGround)-Math.PI/2); 
+      return d.bx; 
     })
     .attr('y2',function(d) { 
       d = getBoatAtTime(d); 
-      return d.speedOverGround * 
-             Math.sin(toRadians(d.courseOverGround)-Math.PI/2); 
+      return d.by;
     });
 
   // Update boat summary table

@@ -1,0 +1,42 @@
+chatter Log, Wed 25 Sept 2013
+34th America's Cup, final race 19
+
+13:00:38 MDS data is public
+13:05:01 WND Wind 260 at 18.9 kts, 22.3 kts peak
+13:09:58 TIM ~5 min to 13:15 PDT race 19 start, NZL port entry, USA stbd
+13:12:00 Race 19 (NZL,USA): Warning, 3:00 until start
+13:12:52 NZL Began Entry
+13:12:54 NZL Completed Entry
+13:13:05 USA Began Entry
+13:13:08 USA Completed Entry
+13:14:31 WND Wind 265 at 17.8 kts, 19.9 kts peak
+13:15:00 Race 19 (NZL,USA): Started
+13:15:00 NZL Crossed Start Line
+13:15:00 USA Crossed Start Line
+13:15:31 NZL Rounded Mark 1, 0:31.6 after start
+13:15:38 USA Rounded Mark 1, 0:06.6 behind leader
+13:16:59 TIM At mark 1, max spd NZL 44.4 kts = 51.1 mph = 82.2 kph; USA 44.3 kts
+13:18:16 TIM Halfway down leg 2, NZL and USA both gye to stbd at limit, NZL 30 m ahead
+13:20:00 NZL Rounded Mark 2, 5:00.5 after start
+13:20:03 USA Rounded Mark 2, 0:03.0 behind leader
+13:21:29 TIM NZL on stbd crosses ahead of USA on port, ducking
+13:22:54 TIM USA on stbd crosses ahead of NZL on port
+13:24:05 TIM USA on port crosses 50m ahead of NZL on stbd
+13:25:01 WND Wind 255 at 17.5 kts, 20.7 kts peak
+13:26:26 TIM USA on port crosses 200m ahead of NZL on stbd
+13:28:36 TIM 2/3 up leg 3 USA on port crosses 265m ahead of NZL on stbd
+13:31:34 USA Rounded Mark 3, 16:34.3 after start
+13:32:00 NZL Rounded Mark 3, 0:26.1 behind leader
+13:35:01 WND Wind 265 at 16.4 kts, 18.5 kts peak
+13:35:50 TIM Halfway down leg 4, LiveLine indicates USA leads NZL by 715m
+13:37:10 USA Rounded Mark 4, 22:10.1 after start
+13:37:48 NZL Rounded Mark 4, 0:38.7 behind leader
+13:38:24 USA Crossed Finish Line
+13:38:28 PRO USA Finished: time 13:38:24.079, 23:24.079 after start
+13:38:47 WND Wind 250 at 18.4 kts, 19.8 kts peak
+13:39:08 NZL Crossed Finish Line, 0:44.1 behind leader
+13:39:10 UMP so long, thanks for
+13:39:11 PRO NZL Finished: time 13:39:08.277, 24:08.277 after start
+13:39:20 PRO Race 19 Terminated
+13:39:27 UMP all the fish
+13:40:14 MDS public data is off

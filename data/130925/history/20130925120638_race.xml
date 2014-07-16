@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Race>
+  <CreationTimeDate>2013-09-25T12:06:41-07:00</CreationTimeDate>
+  <RaceStartTime Start="2013-09-25T13:15:00-07:00" Postpone="false">
+  </RaceStartTime>
+  <RaceID>13092519</RaceID>
+  <RaceType>Match</RaceType>
+  <Participants>
+    <Yacht SourceID="5" Entry="Port">
+    </Yacht>
+    <Yacht SourceID="7" Entry="Stbd">
+    </Yacht>
+  </Participants>
+  <Course>
+    <CompoundMark CompoundMarkID="1" Name="Mark0">
+      <Mark SeqID="1" Name="SM-Defender" TargetLat="37.820637" TargetLng="-122.457401" SourceID="126">
+      </Mark>
+    </CompoundMark>
+    <CompoundMark CompoundMarkID="2" Name="Mark1">
+      <Mark SeqID="1" Name="SM-Constell1" TargetLat="37.817118" TargetLng="-122.454670" SourceID="122">
+      </Mark>
+      <Mark SeqID="2" Name="SM-Constell2" TargetLat="37.817118" TargetLng="-122.454670" SourceID="123">
+      </Mark>
+    </CompoundMark>
+    <CompoundMark CompoundMarkID="3" Name="Mark2">
+      <Mark SeqID="1" Name="SM-Volunteer" TargetLat="37.813080" TargetLng="-122.450170" SourceID="125">
+      </Mark>
+    </CompoundMark>
+    <CompoundMark CompoundMarkID="4" Name="Mark3">
+      <Mark SeqID="1" Name="SM-Rainbow" TargetLat="37.822873" TargetLng="-122.400630" SourceID="128">
+      </Mark>
+      <Mark SeqID="2" Name="SM-Reliance" TargetLat="37.822873" TargetLng="-122.400630" SourceID="127">
+      </Mark>
+    </CompoundMark>
+    <CompoundMark CompoundMarkID="5" Name="Mark4">
+      <Mark SeqID="1" Name="SM-Mischief" TargetLat="37.813144" TargetLng="-122.462719" SourceID="133">
+      </Mark>
+      <Mark SeqID="2" Name="SM-Atalanta" TargetLat="37.813144" TargetLng="-122.462719" SourceID="124">
+      </Mark>
+    </CompoundMark>
+    <CompoundMark CompoundMarkID="6" Name="Mark3">
+      <Mark SeqID="1" Name="SM-Reliance" TargetLat="37.822873" TargetLng="-122.400630" SourceID="127">
+      </Mark>
+    </CompoundMark>
+    <CompoundMark CompoundMarkID="7" Name="Mark5">
+      <Mark SeqID="1" Name="SM-Columbia1" TargetLat="37.809134" TargetLng="-122.399705" SourceID="131">
+      </Mark>
+      <Mark SeqID="2" Name="SM-Columbia2" TargetLat="37.809134" TargetLng="-122.399705" SourceID="132">
+      </Mark>
+    </CompoundMark>
+  </Course>
+  <CompoundMarkSequence>
+    <Corner SeqID="1" CompoundMarkID="1" Rounding="Port" ZoneSize="3">
+    </Corner>
+    <Corner SeqID="2" CompoundMarkID="2" Rounding="SP" ZoneSize="3">
+    </Corner>
+    <Corner SeqID="3" CompoundMarkID="3" Rounding="Port" ZoneSize="3">
+    </Corner>
+    <Corner SeqID="4" CompoundMarkID="4" Rounding="PS" ZoneSize="3">
+    </Corner>
+    <Corner SeqID="5" CompoundMarkID="5" Rounding="PS" ZoneSize="3">
+    </Corner>
+    <Corner SeqID="6" CompoundMarkID="6" Rounding="Stbd" ZoneSize="3">
+    </Corner>
+    <Corner SeqID="7" CompoundMarkID="7" Rounding="SP" ZoneSize="3">
+    </Corner>
+  </CompoundMarkSequence>
+  <CourseLimit>
+    <Limit SeqID="1" Lat="37.819169" Lon="-122.472322">
+    </Limit>
+    <Limit SeqID="2" Lat="37.828371" Lon="-122.459674">
+    </Limit>
+    <Limit SeqID="3" Lat="37.828549" Lon="-122.448059">
+    </Limit>
+    <Limit SeqID="4" Lat="37.820921" Lon="-122.448086">
+    </Limit>
+    <Limit SeqID="5" Lat="37.823341" Lon="-122.421030">
+    </Limit>
+    <Limit SeqID="6" Lat="37.828591" Lon="-122.400468">
+    </Limit>
+    <Limit SeqID="7" Lat="37.823121" Lon="-122.398249">
+    </Limit>
+    <Limit SeqID="8" Lat="37.805181" Lon="-122.395546">
+    </Limit>
+    <Limit SeqID="9" Lat="37.803407" Lon="-122.401007">
+    </Limit>
+    <Limit SeqID="10" Lat="37.807353" Lon="-122.400342">
+    </Limit>
+    <Limit SeqID="11" Lat="37.809532" Lon="-122.404636">
+    </Limit>
+    <Limit SeqID="12" Lat="37.812200" Lon="-122.409092">
+    </Limit>
+    <Limit SeqID="13" Lat="37.812690" Lon="-122.422701">
+    </Limit>
+    <Limit SeqID="14" Lat="37.810568" Lon="-122.431144">
+    </Limit>
+    <Limit SeqID="15" Lat="37.809894" Lon="-122.440567">
+    </Limit>
+    <Limit SeqID="16" Lat="37.810135" Lon="-122.463851">
+    </Limit>
+    <Limit SeqID="17" Lat="37.812271" Lon="-122.465144">
+    </Limit>
+  </CourseLimit>
+</Race>

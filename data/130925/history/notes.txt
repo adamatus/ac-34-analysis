@@ -1,0 +1,27 @@
+ATA - Atalanta - Mark - Mark,WindSource - Windward Gate (Port)
+CN1 - Constelli1 - Mark - Mark,WindSource - Start Gate (Stb)
+CN2 - Constelli2 - Mark - Mark,WindSource - Start Gate (Port)
+CO1 - Columbia1 - Mark - Mark,WindSource - Finish Gate (Stb)
+CO2 - Columbia2 - Mark - Mark,WindSource - Finish Gate (Port)
+DEF - Defender - Mark - Mark,WindSource - Start Box Entry Mark
+HL1 - Helicopter 1 - Helicopter - Stowe
+HL2 - Helicopter 2 - Helicopter - Stowe
+MIS - Mischief - Mark - Mark,WindSource - Windward Gate (Stb)
+NZL - Emirates Team New Zealand - Yacht - Stowe,Ack
+PRO - Regardless - RC - Stowe,Mark,Ack,WindSource - Race Committee 
+RBO - Rainbow - Mark - Mark,WindSource - Leeward Gate (Port)
+REL - Reliance - Mark - Mark,WindSource - Leeward Gate (Stb)
+RGR - Ranger - Mark - Mark,Ack,WindSource - North West Course Marshall (?)
+SHA - Shamrock - Mark - Mark,Ack,WindSource - North East Course Marshall (?)
+U1 - Vigilant - Umpire - Stowe,Ack,WindSource - Course Umpire
+U2 - Willard - Umpire - Stowe,WindSource - Course Umpire
+U3 - Resolute - Mark - Stowe,Ack,WindSource - Start Umpire
+USA - ORACLE TEAM USA - Yacht - Stowe,Ack
+VOL - Volunteer - Mark - Mark,WindSource - Start Reach Camera Boat (?)
+WEA - Weatherly - Mark - Mark,Ack,WindSource - Middle of course camera/weather?
+
+FM1 - FakeMark1 - Mark - Mark
+CAM - Cambria - Marshall - Mark
+US1 - ORACLE 1 - Yacht - Stowe,Ack
+
+

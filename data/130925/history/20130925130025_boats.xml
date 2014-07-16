@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BoatConfig>
+  <Modified>2013-09-24T15:45:23-0700</Modified>
+  <Version>12</Version>
+  <Snapshot>195</Snapshot>
+  <Settings>
+    <RaceBoatType Type="AC72" />
+    <BoatDimension BoatLength="26.2" HullLength="22" />
+    <ZoneSize MarkZoneSize="66" CourseZoneSize="110" />
+    <ZoneLimits Limit1="300" Limit2="110" Limit3="66" Limit4="0" Limit5="-100" />
+  </Settings>
+  <BoatShapes>
+    <BoatShape ShapeID="0">
+      <Vertices>
+        <Vtx Seq="2" Y="0.297" X="-1.3" />
+        <Vtx Seq="3" Y="25" X="0" />
+      </Vertices>
+    </BoatShape>
+    <BoatShape ShapeID="3">
+      <Vertices>
+        <Vtx Seq="1" Y="0" X="-1.45" />
+        <Vtx Seq="2" Y="8.99" X="-1.45" />
+        <Vtx Seq="3" Y="8.99" X="1.45" />
+        <Vtx Seq="4" Y="0" X="1.45" />
+      </Vertices>
+    </BoatShape>
+    <BoatShape ShapeID="8">
+      <Vertices>
+        <Vtx Seq="1" Y="0" X="-2.659" />
+        <Vtx Seq="2" Y="18" X="-2.659" />
+        <Vtx Seq="3" Y="18.359" X="0" />
+        <Vtx Seq="4" Y="18" X="2.659" />
+        <Vtx Seq="5" Y="0" X="2.659" />
+      </Vertices>
+    </BoatShape>
+    <BoatShape ShapeID="14">
+      <Vertices>
+        <Vtx Seq="1" Y="0" X="-1" />
+        <Vtx Seq="2" Y="0.75" X="-1" />
+        <Vtx Seq="3" Y="0.75" X="-0.25" />
+        <Vtx Seq="4" Y="3.5" X="-0.25" />
+        <Vtx Seq="5" Y="4.5" X="-1" />
+        <Vtx Seq="6" Y="6.5" X="-1" />
+        <Vtx Seq="7" Y="7" X="-0.5" />
+        <Vtx Seq="8" Y="7" X="0.5" />
+        <Vtx Seq="9" Y="6.5" X="1" />
+        <Vtx Seq="10" Y="4.5" X="1" />
+        <Vtx Seq="11" Y="3.5" X="0.25" />
+        <Vtx Seq="12" Y="0.75" X="0.25" />
+        <Vtx Seq="13" Y="0.75" X="1" />
+        <Vtx Seq="14" Y="0" X="1" />
+      </Vertices>
+    </BoatShape>
+    <BoatShape ShapeID="18">
+      <Vertices>
+        <Vtx Seq="1" Y="0" X="-1.04" />
+        <Vtx Seq="2" Y="0.11" X="-1.18" />
+        <Vtx Seq="3" Y="0.42" X="-1.28" />
+        <Vtx Seq="4" Y="3.74" X="-1.29" />
+        <Vtx Seq="5" Y="5.36" X="-1.21" />
+        <Vtx Seq="6" Y="6.29" X="-1.08" />
+        <Vtx Seq="7" Y="7.15" X="-0.84" />
+        <Vtx Seq="8" Y="7.63" X="-0.62" />
+        <Vtx Seq="9" Y="7.94" X="-0.34" />
+        <Vtx Seq="10" Y="8.06" X="0" />
+        <Vtx Seq="11" Y="7.94" X="0.34" />
+        <Vtx Seq="12" Y="7.63" X="0.62" />
+        <Vtx Seq="13" Y="7.15" X="0.84" />
+        <Vtx Seq="14" Y="6.29" X="1.08" />
+        <Vtx Seq="15" Y="5.36" X="1.21" />
+        <Vtx Seq="16" Y="3.74" X="1.29" />
+        <Vtx Seq="17" Y="0.42" X="1.28" />
+        <Vtx Seq="18" Y="0.11" X="1.18" />
+        <Vtx Seq="19" Y="0" X="1.04" />
+      </Vertices>
+    </BoatShape>
+    <BoatShape ShapeID="24">
+      <Vertices>
+        <Vtx Seq="1" Y="0" X="-2.5" />
+        <Vtx Seq="2" Y="7" X="-2.5" />
+        <Vtx Seq="3" Y="12.6" X="-2.2" />
+        <Vtx Seq="4" Y="12.6" X="2.2" />
+        <Vtx Seq="5" Y="7" X="2.5" />
+        <Vtx Seq="6" Y="0" X="2.5" />
+      </Vertices>
+    </BoatShape>
+    <BoatShape ShapeID="27">
+      <Vertices>
+        <Vtx Seq="1" Y="0" X="-6.876" />
+        <Vtx Seq="2" Y="2.524" X="-6.953" />
+        <Vtx Seq="3" Y="4.683" X="-6.991" />
+        <Vtx Seq="4" Y="6.986" X="-6.995" />
+        <Vtx Seq="5" Y="9.165" X="-6.996" />
+        <Vtx Seq="6" Y="10.499" X="-6.994" />
+        <Vtx Seq="7" Y="12.999" X="-6.964" />
+        <Vtx Seq="8" Y="16.166" X="-6.887" />
+        <Vtx Seq="9" Y="18.756" X="-6.775" />
+        <Vtx Seq="10" Y="20.717" X="-6.649" />
+        <Vtx Seq="11" Y="22" X="-6.528" />
+        <Vtx Seq="12" Y="22.001" X="-0.088" />
+        <Vtx Seq="13" Y="22.001" X="0" />
+        <Vtx Seq="14" Y="22.001" X="0.088" />
+        <Vtx Seq="15" Y="22" X="6.528" />
+        <Vtx Seq="16" Y="20.717" X="6.649" />
+        <Vtx Seq="17" Y="18.756" X="6.775" />
+        <Vtx Seq="18" Y="16.166" X="6.887" />
+        <Vtx Seq="19" Y="12.999" X="6.964" />
+        <Vtx Seq="20" Y="10.499" X="6.994" />
+        <Vtx Seq="21" Y="9.165" X="6.996" />
+        <Vtx Seq="22" Y="6.986" X="6.995" />
+        <Vtx Seq="23" Y="4.683" X="6.991" />
+        <Vtx Seq="24" Y="2.524" X="6.953" />
+        <Vtx Seq="25" Y="0" X="6.876" />
+      </Vertices>
+      <Catamaran>
+        <Vtx Seq="1" Y="0" X="-6.876" />
+        <Vtx Seq="2" Y="2.524" X="-6.953" />
+        <Vtx Seq="3" Y="4.683" X="-6.991" />
+        <Vtx Seq="4" Y="6.986" X="-6.995" />
+        <Vtx Seq="5" Y="9.165" X="-6.996" />
+        <Vtx Seq="6" Y="10.499" X="-6.994" />
+        <Vtx Seq="7" Y="12.999" X="-6.964" />
+        <Vtx Seq="8" Y="16.166" X="-6.887" />
+        <Vtx Seq="9" Y="18.756" X="-6.775" />
+        <Vtx Seq="10" Y="20.717" X="-6.649" />
+        <Vtx Seq="11" Y="22" X="-6.528" />
+        <Vtx Seq="12" Y="17.194" X="-6.168" />
+        <Vtx Seq="13" Y="12.602" X="-6.016" />
+        <Vtx Seq="14" Y="12.602" X="6.016" />
+        <Vtx Seq="15" Y="17.194" X="6.168" />
+        <Vtx Seq="16" Y="22" X="6.528" />
+        <Vtx Seq="17" Y="20.717" X="6.649" />
+        <Vtx Seq="18" Y="18.756" X="6.775" />
+        <Vtx Seq="19" Y="16.166" X="6.887" />
+        <Vtx Seq="20" Y="12.999" X="6.964" />
+        <Vtx Seq="21" Y="10.499" X="6.994" />
+        <Vtx Seq="22" Y="9.165" X="6.996" />
+        <Vtx Seq="23" Y="6.986" X="6.995" />
+        <Vtx Seq="24" Y="4.683" X="6.991" />
+        <Vtx Seq="25" Y="2.524" X="6.953" />
+        <Vtx Seq="26" Y="0" X="6.876" />
+      </Catamaran>
+      <Bowsprit>
+        <Vtx Seq="1" Y="12.602" X="-1.5" />
+        <Vtx Seq="2" Y="22.001" X="-0.088" />
+        <Vtx Seq="3" Y="22.001" X="0" />
+        <Vtx Seq="4" Y="22.001" X="0.088" />
+        <Vtx Seq="5" Y="12.602" X="1.5" />
+      </Bowsprit>
+      <Trampoline>
+        <Vtx Seq="1" Y="0" X="-6.016" />
+        <Vtx Seq="2" Y="12.602" X="-6.016" />
+        <Vtx Seq="3" Y="12.602" X="6.016" />
+        <Vtx Seq="4" Y="0" X="6.016" />
+      </Trampoline>
+    </BoatShape>
+    <BoatShape ShapeID="28">
+      <Vertices>
+        <Vtx Seq="1" Y="0" X="-6.803" />
+        <Vtx Seq="2" Y="0.016" X="-6.882" />
+        <Vtx Seq="3" Y="0.047" X="-6.924" />
+        <Vtx Seq="4" Y="2.203" X="-6.965" />
+        <Vtx Seq="5" Y="4.403" X="-6.974" />
+        <Vtx Seq="6" Y="6.603" X="-6.983" />
+        <Vtx Seq="7" Y="8.803" X="-6.992" />
+        <Vtx Seq="8" Y="11.003" X="-6.998" />
+        <Vtx Seq="9" Y="13.203" X="-6.988" />
+        <Vtx Seq="10" Y="15.403" X="-6.95" />
+        <Vtx Seq="11" Y="17.603" X="-6.88" />
+        <Vtx Seq="12" Y="19.803" X="-6.768" />
+        <Vtx Seq="13" Y="21.65" X="-6.6" />
+        <Vtx Seq="14" Y="21.972" X="-6.542" />
+        <Vtx Seq="15" Y="21.994" X="-6.512" />
+        <Vtx Seq="16" Y="25.527" X="-0.062" />
+        <Vtx Seq="17" Y="25.529" X="0" />
+        <Vtx Seq="18" Y="25.527" X="0.062" />
+        <Vtx Seq="19" Y="21.994" X="6.512" />
+        <Vtx Seq="20" Y="21.972" X="6.542" />
+        <Vtx Seq="21" Y="21.65" X="6.6" />
+        <Vtx Seq="22" Y="19.803" X="6.768" />
+        <Vtx Seq="23" Y="17.603" X="6.88" />
+        <Vtx Seq="24" Y="15.403" X="6.95" />
+        <Vtx Seq="25" Y="13.203" X="6.988" />
+        <Vtx Seq="26" Y="11.003" X="6.998" />
+        <Vtx Seq="27" Y="8.803" X="6.992" />
+        <Vtx Seq="28" Y="6.603" X="6.983" />
+        <Vtx Seq="29" Y="4.403" X="6.974" />
+        <Vtx Seq="30" Y="2.203" X="6.965" />
+        <Vtx Seq="31" Y="0.047" X="6.924" />
+        <Vtx Seq="32" Y="0.016" X="6.882" />
+        <Vtx Seq="33" Y="0" X="6.803" />
+      </Vertices>
+      <Catamaran>
+        <Vtx Seq="1" Y="0.068" X="-0.01" />
+        <Vtx Seq="2" Y="0.068" X="-5.763" />
+        <Vtx Seq="3" Y="0.049" X="-5.98" />
+        <Vtx Seq="4" Y="0.013" X="-6.112" />
+        <Vtx Seq="5" Y="0.003" X="-6.803" />
+        <Vtx Seq="6" Y="0.016" X="-6.882" />
+        <Vtx Seq="7" Y="0.047" X="-6.924" />
+        <Vtx Seq="8" Y="2.203" X="-6.965" />
+        <Vtx Seq="9" Y="4.403" X="-6.974" />
+        <Vtx Seq="10" Y="8.803" X="-6.992" />
+        <Vtx Seq="11" Y="11.003" X="-6.998" />
+        <Vtx Seq="12" Y="13.203" X="-6.988" />
+        <Vtx Seq="13" Y="15.403" X="-6.95" />
+        <Vtx Seq="14" Y="17.603" X="-6.88" />
+        <Vtx Seq="15" Y="19.803" X="-6.768" />
+        <Vtx Seq="16" Y="21.65" X="-6.6" />
+        <Vtx Seq="17" Y="21.972" X="-6.542" />
+        <Vtx Seq="18" Y="21.994" X="-6.512" />
+        <Vtx Seq="19" Y="21.969" X="-6.479" />
+        <Vtx Seq="20" Y="21.621" X="-6.41" />
+        <Vtx Seq="21" Y="19.803" X="-6.228" />
+        <Vtx Seq="22" Y="15.385" X="-5.954" />
+        <Vtx Seq="23" Y="15.385" X="5.954" />
+        <Vtx Seq="24" Y="19.803" X="6.228" />
+        <Vtx Seq="25" Y="21.621" X="6.41" />
+        <Vtx Seq="26" Y="21.969" X="6.479" />
+        <Vtx Seq="27" Y="21.994" X="6.512" />
+        <Vtx Seq="28" Y="21.972" X="6.542" />
+        <Vtx Seq="29" Y="21.65" X="6.6" />
+        <Vtx Seq="30" Y="19.803" X="6.768" />
+        <Vtx Seq="31" Y="15.403" X="6.95" />
+        <Vtx Seq="32" Y="13.203" X="6.988" />
+        <Vtx Seq="33" Y="11.003" X="6.998" />
+        <Vtx Seq="34" Y="8.803" X="6.992" />
+        <Vtx Seq="35" Y="4.403" X="6.974" />
+        <Vtx Seq="36" Y="2.203" X="6.965" />
+        <Vtx Seq="37" Y="0.047" X="6.924" />
+        <Vtx Seq="38" Y="0.016" X="6.882" />
+        <Vtx Seq="39" Y="0.003" X="6.803" />
+        <Vtx Seq="40" Y="0.013" X="6.112" />
+        <Vtx Seq="41" Y="0.049" X="5.98" />
+        <Vtx Seq="42" Y="0.068" X="5.763" />
+        <Vtx Seq="43" Y="0.068" X="0.01" />
+      </Catamaran>
+      <Bowsprit>
+        <Vtx Seq="1" Y="15.385" X="-1.5" />
+        <Vtx Seq="2" Y="25.527" X="-0.062" />
+        <Vtx Seq="3" Y="25.529" X="0" />
+        <Vtx Seq="4" Y="25.527" X="0.062" />
+        <Vtx Seq="5" Y="15.385" X="1.5" />
+      </Bowsprit>
+      <Trampoline>
+        <Vtx Seq="1" Y="0" X="-5.954" />
+        <Vtx Seq="2" Y="15.385" X="-5.954" />
+        <Vtx Seq="3" Y="15.385" X="5.954" />
+        <Vtx Seq="4" Y="0" X="5.954" />
+      </Trampoline>
+    </BoatShape>
+    <BoatShape ShapeID="30">
+      <Vertices>
+        <Vtx Seq="1" Y="0" X="-0.01" />
+        <Vtx Seq="2" Y="0.297" X="-1.3" />
+        <Vtx Seq="3" Y="1.128" X="-2.343" />
+        <Vtx Seq="4" Y="2.33" X="-2.922" />
+        <Vtx Seq="5" Y="3.664" X="-2.922" />
+        <Vtx Seq="6" Y="4.866" X="-2.343" />
+        <Vtx Seq="7" Y="5.697" X="-1.3" />
+        <Vtx Seq="8" Y="5.994" X="0" />
+        <Vtx Seq="9" Y="5.697" X="1.3" />
+        <Vtx Seq="10" Y="4.866" X="2.343" />
+        <Vtx Seq="11" Y="3.664" X="2.922" />
+        <Vtx Seq="12" Y="2.33" X="2.922" />
+        <Vtx Seq="13" Y="1.128" X="2.343" />
+        <Vtx Seq="14" Y="0.297" X="1.3" />
+        <Vtx Seq="15" Y="0" X="0.01" />
+      </Vertices>
+    </BoatShape>
+    <BoatShape ShapeID="31">
+      <Vertices>
+        <Vtx Seq="1" Y="0" X="-0.146" />
+        <Vtx Seq="2" Y="0.18" X="-0.681" />
+        <Vtx Seq="3" Y="0.706" X="-1.057" />
+        <Vtx Seq="4" Y="1.956" X="-1.468" />
+        <Vtx Seq="5" Y="5.161" X="-1.521" />
+        <Vtx Seq="6" Y="9.5" X="-1.171" />
+        <Vtx Seq="7" Y="10.927" X="-0.907" />
+        <Vtx Seq="8" Y="12.189" X="-0.48" />
+        <Vtx Seq="9" Y="13.091" X="-0.064" />
+        <Vtx Seq="10" Y="13.132" X="0" />
+        <Vtx Seq="11" Y="13.091" X="0.064" />
+        <Vtx Seq="12" Y="12.189" X="0.48" />
+        <Vtx Seq="13" Y="10.927" X="0.907" />
+        <Vtx Seq="14" Y="9.5" X="1.171" />
+        <Vtx Seq="15" Y="5.161" X="1.521" />
+        <Vtx Seq="16" Y="1.956" X="1.468" />
+        <Vtx Seq="17" Y="0.706" X="1.057" />
+        <Vtx Seq="18" Y="0.18" X="0.681" />
+        <Vtx Seq="19" Y="0" X="0.146" />
+      </Vertices>
+    </BoatShape>
+    <BoatShape ShapeID="33">
+      <Vertices>
+        <Vtx Seq="1" Y="0" X="-6.876" />
+        <Vtx Seq="2" Y="2.524" X="-6.953" />
+        <Vtx Seq="3" Y="4.683" X="-6.991" />
+        <Vtx Seq="4" Y="6.986" X="-6.995" />
+        <Vtx Seq="5" Y="9.165" X="-6.996" />
+        <Vtx Seq="6" Y="10.499" X="-6.994" />
+        <Vtx Seq="7" Y="12.999" X="-6.964" />
+        <Vtx Seq="8" Y="16.166" X="-6.887" />
+        <Vtx Seq="9" Y="18.756" X="-6.775" />
+        <Vtx Seq="10" Y="20.717" X="-6.649" />
+        <Vtx Seq="11" Y="22" X="-6.528" />
+        <Vtx Seq="12" Y="25.745" X="-0.088" />
+        <Vtx Seq="13" Y="25.746" X="0" />
+        <Vtx Seq="14" Y="25.745" X="0.088" />
+        <Vtx Seq="15" Y="22" X="6.528" />
+        <Vtx Seq="16" Y="20.717" X="6.649" />
+        <Vtx Seq="17" Y="18.756" X="6.775" />
+        <Vtx Seq="18" Y="16.166" X="6.887" />
+        <Vtx Seq="19" Y="12.999" X="6.964" />
+        <Vtx Seq="20" Y="10.499" X="6.994" />
+        <Vtx Seq="21" Y="9.165" X="6.996" />
+        <Vtx Seq="22" Y="6.986" X="6.995" />
+        <Vtx Seq="23" Y="4.683" X="6.991" />
+        <Vtx Seq="24" Y="2.524" X="6.953" />
+        <Vtx Seq="25" Y="0" X="6.876" />
+      </Vertices>
+      <Catamaran>
+        <Vtx Seq="1" Y="0" X="-6.876" />
+        <Vtx Seq="2" Y="2.524" X="-6.953" />
+        <Vtx Seq="3" Y="4.683" X="-6.991" />
+        <Vtx Seq="4" Y="6.986" X="-6.995" />
+        <Vtx Seq="5" Y="9.165" X="-6.996" />
+        <Vtx Seq="6" Y="10.499" X="-6.994" />
+        <Vtx Seq="7" Y="12.999" X="-6.964" />
+        <Vtx Seq="8" Y="16.166" X="-6.887" />
+        <Vtx Seq="9" Y="18.756" X="-6.775" />
+        <Vtx Seq="10" Y="20.717" X="-6.649" />
+        <Vtx Seq="11" Y="22" X="-6.528" />
+        <Vtx Seq="12" Y="17.194" X="-6.168" />
+        <Vtx Seq="13" Y="12.602" X="-6.016" />
+        <Vtx Seq="14" Y="12.602" X="6.016" />
+        <Vtx Seq="15" Y="17.194" X="6.168" />
+        <Vtx Seq="16" Y="22" X="6.528" />
+        <Vtx Seq="17" Y="20.717" X="6.649" />
+        <Vtx Seq="18" Y="18.756" X="6.775" />
+        <Vtx Seq="19" Y="16.166" X="6.887" />
+        <Vtx Seq="20" Y="12.999" X="6.964" />
+        <Vtx Seq="21" Y="10.499" X="6.994" />
+        <Vtx Seq="22" Y="9.165" X="6.996" />
+        <Vtx Seq="23" Y="6.986" X="6.995" />
+        <Vtx Seq="24" Y="4.683" X="6.991" />
+        <Vtx Seq="25" Y="2.524" X="6.953" />
+        <Vtx Seq="26" Y="0" X="6.876" />
+      </Catamaran>
+      <Bowsprit>
+        <Vtx Seq="1" Y="12.602" X="-1.5" />
+        <Vtx Seq="2" Y="25.745" X="-0.088" />
+        <Vtx Seq="3" Y="25.746" X="0" />
+        <Vtx Seq="4" Y="25.745" X="0.088" />
+        <Vtx Seq="5" Y="12.602" X="1.5" />
+      </Bowsprit>
+      <Trampoline>
+        <Vtx Seq="1" Y="0" X="-6.016" />
+        <Vtx Seq="2" Y="12.602" X="-6.016" />
+        <Vtx Seq="3" Y="12.602" X="6.016" />
+        <Vtx Seq="4" Y="0" X="6.016" />
+      </Trampoline>
+    </BoatShape>
+  </BoatShapes>
+  <Boats>
+    <Boat Ack="1" IPAddress="172.20.1.121" Type="RC" SourceID="121" ShapeID="8" StoweName="PRO" ShortName="PRO" ShorterName="PRO" BoatName="Regardless" HullNum="RG01" Skipper="Alistair McRae" Flag="Stowe,Mark,Ack,WindSource" PeliID="121" RadioIP="172.20.2.121">
+      <GPSposition Z="6.84" Y="7.8" X="0" />
+      <FlagPosition Z="0" Y="7.8" X="0" />
+      <NavDevice Type="NovAtelGps" />
+      <BoatInstruments Type="MaretronWindSonic" CompOff="180" WindOff="0" />
+    </Boat>
+    <Boat Ack="0" IPAddress="172.20.1.122" Type="Mark" SourceID="122" ShapeID="30" StoweName="CN1" ShortName="Constell1" ShorterName="CN1" BoatName="SM-Constell1" HullNum="SM01" Skipper="" Flag="Mark,WindSource" PeliID="122" RadioIP="172.20.2.122">
+      <GPSposition Z="5.095" Y="3.378" X="0" />
+      <FlagPosition Z="0" Y="3" X="0" />
+      <NavDevice Type="NovAtelGps" />
+      <BoatInstruments Type="MaretronWindSonic" CompOff="180" WindOff="0" />
+    </Boat>
+    <Boat Ack="0" IPAddress="172.20.1.123" Type="Mark" SourceID="123" ShapeID="30" StoweName="CN2" ShortName="Constell2" ShorterName="CN2" BoatName="SM-Constell2" HullNum="SM02" Skipper="" Flag="Mark,WindSource" PeliID="123" RadioIP="172.20.2.123">
+      <GPSposition Z="5.095" Y="3.378" X="0" />
+      <FlagPosition Z="0" Y="3" X="0" />
+      <NavDevice Type="NovAtelGps" />
+      <BoatInstruments Type="MaretronWindSonic" CompOff="180" WindOff="0" />
+    </Boat>
+    <Boat Ack="0" IPAddress="172.20.1.124" Type="Mark" SourceID="124" ShapeID="30" StoweName="ATA" ShortName="Atalanta" ShorterName="ATA" BoatName="SM-Atalanta" HullNum="SM03" Skipper="" Flag="Mark,WindSource" PeliID="124" RadioIP="172.20.2.124">
+      <GPSposition Z="5.095" Y="3.378" X="0" />
+      <FlagPosition Z="0" Y="3" X="0" />
+      <NavDevice Type="NovAtelGps" />
+      <BoatInstruments Type="MaretronWindSonic" CompOff="180" WindOff="0" />
+    </Boat>
+    <Boat Ack="0" IPAddress="172.20.1.125" Type="Mark" SourceID="125" ShapeID="30" StoweName="VOL" ShortName="Volunteer" ShorterName="VOL" BoatName="SM-Volunteer" HullNum="SM04" Skipper="" Flag="Mark,WindSource" PeliID="125" RadioIP="172.20.2.125">
+      <GPSposition Z="5.095" Y="3.378" X="0" />
+      <FlagPosition Z="0" Y="3" X="0" />
+      <NavDevice Type="NovAtelGps" />
+      <BoatInstruments Type="MaretronWindSonic" CompOff="180" WindOff="0" />
+    </Boat>
+    <Boat Ack="0" IPAddress="172.20.1.126" Type="Mark" SourceID="126" ShapeID="30" StoweName="DEF" ShortName="Defender" ShorterName="DEF" BoatName="SM-Defender" HullNum="SM05" Skipper="" Flag="Mark,WindSource" PeliID="126" RadioIP="172.20.2.126">
+      <GPSposition Z="5.095" Y="3.378" X="0" />
+      <FlagPosition Z="0" Y="3" X="0" />
+      <NavDevice Type="NovAtelGps" />
+      <BoatInstruments Type="MaretronWindSonic" CompOff="180" WindOff="0" />
+    </Boat>
+    <Boat Ack="0" IPAddress="172.20.1.127" Type="Mark" SourceID="127" ShapeID="30" StoweName="REL" ShortName="Reliance" ShorterName="REL" BoatName="SM-Reliance" HullNum="SM06" Skipper="" Flag="Mark,WindSource" PeliID="127" RadioIP="172.20.2.127">
+      <GPSposition Z="5.095" Y="3.378" X="0" />
+      <FlagPosition Z="0" Y="3" X="0" />
+      <NavDevice Type="NovAtelGps" />
+      <BoatInstruments Type="MaretronWindSonic" CompOff="180" WindOff="0" />
+    </Boat>
+    <Boat Ack="0" IPAddress="172.20.1.130" Type="Mark" SourceID="128" ShapeID="30" StoweName="RBO" ShortName="Rainbow" ShorterName="RBO" BoatName="SM-Rainbow" HullNum="SM07" Skipper="" Flag="Mark,WindSource" PeliID="130" RadioIP="172.20.2.128">
+      <GPSposition Z="5.095" Y="3.378" X="0" />
+      <FlagPosition Z="0" Y="3" X="0" />
+      <NavDevice Type="NovAtelGps" />
+      <BoatInstruments Type="MaretronWindSonic" CompOff="180" WindOff="0" />
+    </Boat>
+    <Boat Ack="0" IPAddress="172.20.1.131" Type="Mark" SourceID="131" ShapeID="30" StoweName="CO1" ShortName="Columbia1" ShorterName="CO1" BoatName="SM-Columbia1" HullNum="SM08" Skipper="" Flag="Mark,WindSource" PeliID="131" RadioIP="172.20.2.131">
+      <GPSposition Z="5.095" Y="3.378" X="0" />
+      <FlagPosition Z="0" Y="3" X="0" />
+      <NavDevice Type="NovAtelGps" />
+      <BoatInstruments Type="MaretronWindSonic" CompOff="180" WindOff="0" />
+    </Boat>
+    <Boat Ack="0" IPAddress="172.20.1.111" Type="Mark" SourceID="132" ShapeID="30" StoweName="CO2" ShortName="Columbia2" ShorterName="CO2" BoatName="SM-Columbia2" HullNum="SM09" Skipper="" Flag="Mark,WindSource" PeliID="111" RadioIP="172.20.2.132">
+      <GPSposition Z="5.095" Y="3.378" X="0" />
+      <FlagPosition Z="0" Y="3" X="0" />
+      <NavDevice Type="NovAtelGps" />
+      <BoatInstruments Type="MaretronWindSonic" CompOff="180" WindOff="0" />
+    </Boat>
+    <Boat Ack="0" IPAddress="172.20.1.132" Type="Mark" SourceID="133" ShapeID="30" StoweName="MIS" ShortName="Mischief" ShorterName="MIS" BoatName="SM-Mischief" HullNum="SM10" Skipper="" Flag="Mark,WindSource" PeliID="132" RadioIP="172.20.2.133">
+      <GPSposition Z="5.095" Y="3.378" X="0" />
+      <FlagPosition Z="0" Y="3" X="0" />
+      <NavDevice Type="NovAtelGps" />
+      <BoatInstruments Type="MaretronWindSonic" CompOff="180" WindOff="0" />
+    </Boat>
+    <Boat Ack="1" IPAddress="172.20.1.128" Type="Mark" SourceID="135" ShapeID="18" StoweName="RGR" ShortName="Ranger" ShorterName="RNGR" BoatName="Ranger" HullNum="XR04" Skipper="James Chapman" Flag="Mark,Ack,WindSource" PeliID="128" RadioIP="172.20.2.135">
+      <GPSposition Z="5.17" Y="3.804" X="0" />
+      <FlagPosition Z="0" Y="0" X="0" />
+      <NavDevice Type="NovAtelGps" />
+      <BoatInstruments Type="MaretronWindSonic" CompOff="180" WindOff="0" />
+    </Boat>
+    <Boat Ack="0" IPAddress="172.20.1.199" Type="Mark" SourceID="151" ShapeID="30" StoweName="FM1" ShortName="FakeMark1" ShorterName="FM1" BoatName="FakeMark1" HullNum="FM01" Skipper="Bernard Fokke" Flag="Mark">
+      <GPSposition Z="5.095" Y="3.378" X="0" />
+      <FlagPosition Z="0" Y="3" X="0" />
+    </Boat>
+    <Boat Ack="1" IPAddress="172.20.1.104" Type="Umpire" SourceID="130" ShapeID="18" StoweName="U1" ShortName="U1" ShorterName="U1" BoatName="Vigilant" HullNum="XR02" Skipper="Umpire" Flag="Stowe,Ack,WindSource" PeliID="104" RadioIP="172.20.2.130">
+      <GPSposition Z="4.8" Y="4.12" X="0" />
+      <NavDevice Type="NovAtelSpan" />
+      <VehicleToBodyRotation Z="275" Y="0" X="0" />
+      <InsCoordinate Z="0.459" Y="5.527" X="0.342" />
+      <ImuOrientation Mode="4" />
+    </Boat>
+    <Boat Ack="0" IPAddress="172.20.1.108" Type="Mark" SourceID="136" ShapeID="18" StoweName="U3" ShortName="U3" ShorterName="U3" BoatName="Resolute" HullNum="XR03" Skipper="Andy Hindley" Flag="Stowe,Mark,WindSource" PeliID="108" RadioIP="172.20.2.136">
+      <GPSposition Z="4.8" Y="4.12" X="0" />
+      <FlagPosition Z="0" Y="3.74" X="0" />
+      <NavDevice Type="NovAtelGps" />
+    </Boat>
+    <Boat Ack="0" IPAddress="172.20.1.137" Type="Marshall" SourceID="137" ShapeID="24" StoweName="CAM" ShortName="Cambria" ShorterName="CAM" BoatName="Cambria" HullNum="TV01" Flag="Mark" PeliID="137" RadioIP="172.20.2.137">
+      <GPSposition Z="0" Y="0" X="0" />
+      <FlagPosition Z="0" Y="0" X="0" />
+      <NavDevice Type="L1Gps" />
+    </Boat>
+    <Boat Ack="1" IPAddress="172.20.1.101" Type="Yacht" SourceID="1" ShapeID="33" StoweName="US1" ShortName="ORACLE 1" ShorterName="USA-A" BoatName="ORACLE 1" HullNum="AC7201" Skipper="Ben Ainslie" Helmsman="Ben Ainslie" Country="USA" Flag="Stowe,Ack" PeliID="101" RadioIP="172.20.2.155">
+      <PolarFile Name="AC72polar.txt" />
+      <GPSposition Z="2.387" Y="-0.118" X="0.012" />
+      <MastTop Z="39.89" Y="4.7" X="0" />
+      <FlagPosition Z="0" Y="11" X="0" />
+      <NavDevice Type="NovAtelSpan" />
+      <VehicleToBodyRotation Z="90.29" Y="1" X="0" />
+      <InsCoordinate Z="1.579" Y="1.371" X="1.019" />
+      <ImuOrientation Mode="4" />
+    </Boat>
+    <Boat Ack="1" IPAddress="172.20.1.109" Type="Yacht" SourceID="5" ShapeID="28" StoweName="NZL" ShortName="Team New Zealand" ShorterName="NZL-B" BoatName="Emirates Team New Zealand" HullNum="AC7205" Skipper="Dean Barker" Helmsman="Dean Barker" Country="NZL" Flag="Stowe,Ack" PeliID="109" RadioIP="172.20.2.205">
+      <PolarFile Name="AC72polar.txt" />
+      <GPSposition Z="2.253" Y="-0.944" X="0.02" />
+      <MastTop Z="39.89" Y="4.7" X="0" />
+      <FlagPosition Z="0" Y="11" X="0" />
+      <NavDevice Type="NovAtelSpan" />
+      <VehicleToBodyRotation Z="89.833" Y="-1" X="0.5" />
+      <InsCoordinate Z="1.443" Y="0.554" X="1.021" />
+      <ImuOrientation Mode="4" />
+    </Boat>
+    <Boat Ack="1" IPAddress="172.20.1.107" Type="Yacht" SourceID="7" ShapeID="27" StoweName="USA" ShortName="ORACLE 2" ShorterName="USA-S" BoatName="ORACLE TEAM USA" HullNum="AC7207" Skipper="James Spithill" Helmsman="James Spithill" Country="USA" Flag="Stowe,Ack" PeliID="107" RadioIP="172.20.2.207">
+      <PolarFile Name="AC72polar.txt" />
+      <GPSposition Z="2.41" Y="-0.243" X="0.005" />
+      <MastTop Z="39.89" Y="4.7" X="0" />
+      <FlagPosition Z="0" Y="11" X="0" />
+      <NavDevice Type="NovAtelSpan" />
+      <VehicleToBodyRotation Z="90.12" Y="-2" X="0" />
+      <InsCoordinate Z="1.67" Y="1.264" X="1.008" />
+      <ImuOrientation Mode="4" />
+    </Boat>
+    <Boat Ack="0" IPAddress="172.20.1.102" Type="Umpire" SourceID="129" ShapeID="31" StoweName="U2" ShortName="U2" ShorterName="U2" BoatName="Willard" HullNum="AS01" Skipper="Gabriel Fernadez" Flag="Stowe,WindSource" PeliID="102" RadioIP="172.20.2.129">
+      <GPSposition Z="5.12" Y="5.278" X="0.75" />
+      <NavDevice Type="NovAtelSpan" />
+      <BoatInstruments Type="MaretronWindSonic" CompOff="180" WindOff="0" />
+      <VehicleToBodyRotation Z="180" Y="0" X="0" />
+      <InsCoordinate Z="0.109" Y="7.302" X="0.387" />
+      <ImuOrientation Mode="4" />
+    </Boat>
+    <Boat Ack="1" IPAddress="172.20.1.110" Type="Mark" SourceID="134" ShapeID="3" StoweName="WEA" ShortName="Weatherly" ShorterName="WEA" BoatName="Weatherly" HullNum="XR01" Skipper="Mattias Dahlstrom" Flag="Mark,Ack,WindSource" PeliID="110" RadioIP="172.20.2.134">
+      <GPSposition Z="5.17" Y="3.804" X="0" />
+      <FlagPosition Z="0" Y="0" X="0" />
+      <NavDevice Type="NovAtelGps" />
+      <BoatInstruments Type="MaretronWindSonic" CompOff="180" WindOff="0" />
+    </Boat>
+    <Boat Ack="1" IPAddress="172.20.1.106" Type="Mark" SourceID="138" ShapeID="18" StoweName="SHA" ShortName="Shamrock" ShorterName="SHAM" BoatName="Shamrock" HullNum="LC01" Skipper="Stan Gibbs" Flag="Mark,Ack,WindSource" PeliID="106" RadioIP="172.20.2.138">
+      <GPSposition Z="5.334" Y="3.804" X="0" />
+      <FlagPosition Z="0" Y="3.426" X="0" />
+      <NavDevice Type="NovAtelGps" />
+      <BoatInstruments Type="MaretronWindSonic" CompOff="180" WindOff="0" />
+    </Boat>
+    <Boat Ack="0" IPAddress="172.20.1.140" Type="Helicopter" SourceID="140" ShapeID="14" StoweName="HL1" ShortName="HEL1" ShorterName="Heli1" BoatName="Helicopter" Flag="Stowe" PeliID="140" RadioIP="172.20.2.140" />
+    <Boat Ack="0" IPAddress="172.20.1.129" Type="Helicopter" SourceID="142" ShapeID="14" StoweName="HL2" ShortName="HEL2" ShorterName="Heli2" BoatName="Helicopter" PeliID="129" RadioIP="172.20.2.142" />
+    <Boat Ack="0" IPAddress="172.20.1.182" Type="ClientData" SourceID="182" ShapeID="0" StoweName="UMN" ShortName="UMN1" ShorterName="UMN1" BoatName="UMon1" PeliID="182" />
+    <Boat Ack="0" IPAddress="172.20.1.183" Type="ClientData" SourceID="183" ShapeID="0" StoweName="UMN" ShortName="UMN2" ShorterName="UMN2" BoatName="UMon2" PeliID="183" />
+    <Boat Ack="0" IPAddress="172.20.1.202" Type="ClientData" SourceID="184" ShapeID="0" StoweName="UMN" ShortName="UMN3" ShorterName="UMN3" BoatName="UMon3" PeliID="184" />
+    <Boat Ack="0" IPAddress="172.20.1.197" Type="ClientData" SourceID="197" ShapeID="0" StoweName="MD2" ShortName="MDSS Backup" ShorterName="MDS2" BoatName="MDSS Backup" Flag="Chatter,Rounding,PenLine,PenDist,YachtEvents,CourseWind" />
+    <Boat Ack="0" IPAddress="172.20.1.198" Type="ClientData" SourceID="198" ShapeID="0" StoweName="BRG" ShortName="Bridge" ShorterName="Bridge" BoatName="MDSS Data Bridge" Flag="Chatter,Rounding,PenLine,PenDist,YachtEvents,CourseWind,AvgWind,Restrict" />
+    <Boat Ack="0" IPAddress="172.20.1.199" Type="ClientData" SourceID="199" ShapeID="0" StoweName="MTE" ShortName="Matte" ShorterName="MTE" BoatName="Matte" Flag="Chatter,Rounding,PenLine,PenDist,YachtEvents,CourseWind" RadioIP="" />
+    <Boat Ack="0" IPAddress="172.20.1.200" Type="ClientData" SourceID="200" ShapeID="0" StoweName="SFX" ShortName="SailFX" ShorterName="SFX" BoatName="SailFX" Flag="Chatter,Rounding,PenLine,PenDist,YachtEvents,CourseWind" RadioIP="" />
+    <Boat Ack="1" IPAddress="172.20.1.201" Type="ProApp" SourceID="201" ShapeID="0" StoweName="PRO" ShortName="PROAPP" ShorterName="PRO" BoatName="PRO John Craig" Flag="Stowe,YachtEvents,Ack,CourseWind,AvgWind" RadioIP="" />
+    <Boat Ack="0" IPAddress="172.20.1.202" Type="MDSS" SourceID="202" ShapeID="0" StoweName="MDS" ShortName="MDSS" ShorterName="MDS" BoatName="MDSS" Flag="Stowe" RadioIP="" />
+    <Boat Ack="1" IPAddress="172.20.1.203" Type="ProApp" SourceID="203" ShapeID="0" StoweName="PRO" ShortName="PRO" ShorterName="PRO" BoatName="PRO BACKUP" Flag="Stowe,YachtEvents,Ack,CourseWind,AvgWind" RadioIP="" />
+    <Boat Ack="1" IPAddress="172.20.1.204" Type="UmpApp" SourceID="204" ShapeID="0" StoweName="UMP" ShortName="UMPAPP1" ShorterName="UMP" BoatName="UMP 1" Flag="Stowe,PenDist,YachtEvents,Ack,CourseWind" RadioIP="" />
+    <Boat Ack="1" IPAddress="172.20.1.205" Type="UmpApp" SourceID="205" ShapeID="0" StoweName="UMP" ShortName="UMPAPP2" ShorterName="UMP" BoatName="UMP 2" Flag="Stowe,PenDist,YachtEvents,Ack,CourseWind" RadioIP="" />
+    <Boat Ack="1" IPAddress="172.20.1.206" Type="ProApp" SourceID="206" ShapeID="0" StoweName="PRO" ShortName="PROAPP_GWW" ShorterName="PROG" BoatName="Graeme Pro" Flag="Stowe,YachtEvents,Ack,CourseWind,AvgWind" RadioIP="" />
+    <Boat Ack="1" IPAddress="172.20.1.207" Type="UmpApp" SourceID="207" ShapeID="0" StoweName="UMP" ShortName="UMPAPP_GWW" ShorterName="UMPG" BoatName="Graeme Ump" Flag="Stowe,PenDist,YachtEvents,Ack,CourseWind" RadioIP="" />
+    <Boat Ack="1" IPAddress="172.20.1.183" Type="ProApp" SourceID="208" ShapeID="0" StoweName="PRO" ShortName="ProStan" ShorterName="PROS" BoatName="ProStan" Flag="Stowe,YachtEvents,Ack,CourseWind,AvgWind" />
+    <Boat Ack="1" IPAddress="172.20.1.209" Type="ProApp" SourceID="209" ShapeID="0" StoweName="PRO" ShortName="Pro John LT" ShorterName="PRO-MEL" BoatName="Pro John LT" Flag="Stowe,YachtEvents,Ack,CourseWind,AvgWind" />
+    <Boat Ack="0" IPAddress="172.20.1.210" Type="ProApp" SourceID="210" ShapeID="0" StoweName="PRO" ShortName="PV3" ShorterName="PV3" BoatName="Pro Viewer 3" Flag="Stowe,YachtEvents,CourseWind,AvgWind" />
+    <Boat Ack="0" IPAddress="172.20.1.211" Type="ClientData" SourceID="211" ShapeID="0" StoweName="LBi" ShortName="LBi" ShorterName="LBi" BoatName="LBi" Flag="Stowe,Chatter,Rounding,YachtEvents,CourseWind,AvgWind,Restrict" RadioIP="" />
+    <Boat Ack="0" IPAddress="172.20.1.214" Type="ClientData" SourceID="214" ShapeID="0" StoweName="ARL" ShortName="ARL4" ShorterName="ARL4" BoatName="ARL 2D 4" Flag="Stowe,Chatter,Rounding,PenLine,PenDist,YachtEvents,CourseWind,AvgWind" RadioIP="" />
+    <Boat Ack="0" IPAddress="172.20.1.215" Type="ClientData" SourceID="215" ShapeID="0" StoweName="ARL" ShortName="ARL5" ShorterName="ARL5" BoatName="ARL 3D 1" Flag="Stowe,Chatter,Rounding,PenLine,PenDist,YachtEvents,CourseWind,AvgWind" RadioIP="" />
+    <Boat Ack="0" IPAddress="172.20.1.221" Type="ClientData" SourceID="221" ShapeID="0" StoweName="AIS" ShortName="Vesper AIS" ShorterName="AIS" BoatName="Vesper AIS" Flag="Restrict" />
+    <Boat Ack="1" IPAddress="172.20.1.223" Type="UmpApp" SourceID="223" ShapeID="0" StoweName="UMP" ShortName="UMPAPP LT" ShorterName="UMPM" BoatName="UMP Mike LT" Flag="Stowe,PenDist,YachtEvents,Ack,CourseWind" RadioIP="" />
+    <Boat Ack="1" IPAddress="172.20.1.224" Type="UmpApp" SourceID="224" ShapeID="0" StoweName="UMP" ShortName="UMPSPARE" ShorterName="UMPS" BoatName="UMP SPARE" Flag="Stowe,PenDist,YachtEvents,Ack,CourseWind" RadioIP="" />
+    <Boat Ack="0" IPAddress="172.20.1.225" Type="ClientData" SourceID="225" ShapeID="0" StoweName="SFX" ShortName="SFX2" ShorterName="SFX2" BoatName="SailFX 2" Flag="Chatter,Rounding,PenLine,PenDist,YachtEvents,CourseWind" />
+    <Boat Ack="0" IPAddress="172.20.1.226" Type="UmpApp" SourceID="226" ShapeID="0" StoweName="UMP" ShortName="UMPAPP Mac" ShorterName="UMPC" BoatName="UMP Mike Mac" Flag="Stowe,PenDist,YachtEvents,CourseWind" RadioIP="" />
+    <Boat Ack="1" IPAddress="172.20.1.188" Type="ProApp" SourceID="228" ShapeID="0" StoweName="PS2" ShortName="ProStan2" ShorterName="PRO-S2" BoatName="ProStan2" Flag="Stowe,YachtEvents,Ack,CourseWind,AvgWind" />
+    <Boat Ack="0" IPAddress="172.20.1.233" Type="ClientData" SourceID="233" ShapeID="0" StoweName="MWS" ShortName="Web Service" ShorterName="MWS" BoatName="MDSS Web Service" Flag="Stowe,Chatter,Rounding,YachtEvents,CourseWind,AvgWind" RadioIP="" />
+  </Boats>
+</BoatConfig>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RegattaConfig>
+  <RegattaID>20</RegattaID>
+  <RegattaName>America's Cup</RegattaName>
+  <CourseName>San Francisco</CourseName>
+  <CentralLatitude>37.8068650</CentralLatitude>
+  <CentralLongitude>-122.4360358</CentralLongitude>
+  <CentralAltitude>0.00</CentralAltitude>
+  <UtcOffset>-7</UtcOffset>
+  <MagneticVariation>+14.0</MagneticVariation>
+</RegattaConfig>

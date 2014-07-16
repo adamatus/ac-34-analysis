@@ -103,7 +103,7 @@ var boatLayer = g.append('g').attr('id','boat-group');
 var loadboat = function loadboat(i) {
   var boat_id = boats[i].id;
   var boat_class = boats[i].className;
-  d3.csv('../data/130925/csv/20130925130025-NAV-'+boat_id+'.csv')
+  d3.csv('data/130925/csv/20130925130025-NAV-'+boat_id+'.csv')
     .row(function(d) { 
       var app = computeApparentWind(d.COG,d.SOG,
                                     d.CourseWindDirection,

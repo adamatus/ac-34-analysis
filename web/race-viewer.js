@@ -59,16 +59,11 @@ var ts = $('#time-slider')
     updateBoatPos(ev.value);
   });
 
-// Add the base CloudMade map
-var APIKEY = '78f159c3ec8c4290b7854cf0471003ec';
+// Add the base map
 var map = L.map('map').setView([37.82022604148547, -122.4294090270996], 13);
-L.tileLayer('http://{s}.tile.cloudmade.com/'+APIKEY+'/997/256/{z}/{x}/{y}.png', 
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', 
     {
-      attribution: "Map data &copy; <a href='http://openstreetmap.org'>" +
-                "OpenStreetMap</a> contributors, " +
-                "<a href='http://creativecommons.org/licenses/by-sa/2.0/'>" + 
-                "CC-BY-SA</a>, Imagery &copy; <a href='http://cloudmade.com'>" + 
-                "CloudMade</a>",
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       maxZoom: 18
     }).addTo(map);
 
